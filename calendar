@@ -1,0 +1,275 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Calendar</title>
+	
+	<style>
+		body {
+			font-family: 'Roboto', sans-serif;
+		}
+		
+		table, tbody, tr, td {
+			border: 1px solid #E1D9D9;
+			border-collapse: collapse;
+			padding: 0;
+			color: #23242B;
+			
+		}
+		
+		.today {
+			background-color: antiquewhite;
+		}
+		
+		.inactiveMonth {
+			color: #AEAEAE;
+		}
+		
+		.calbtn {
+			border-radius: 50%;
+			text-decoration: none;
+			display: inline-block;
+			padding: 8px 16px;
+			background-color: antiquewhite;
+		}
+		
+		.calbtn:hover {
+			background-color: #ddd;
+    		color: black;
+		}
+		
+		.innerSchedule {
+			width: 100%;
+		}
+		
+		.innerScheduleSlot {
+			padding: 5px;
+		}
+		
+		.dayCol {
+			width: calc(100%/7);
+		}
+	</style>
+	
+	<link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
+</head>
+
+<body>
+	<button onClick="makeC()">make calendar</button>
+	<p id="mth"></p>
+	<div id="tmp"></div>
+	
+	<script>
+		weekdayLong = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+		weekdayShort = ['Sun','Mon','Tues','Wed','Thur','Fri','Sat'];
+		monthLong = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+		monthShort = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nove','Dec'];
+		
+		yr = 2018;
+		var d = new Date();
+		var currentMonth = d.getMonth();
+		var currentDate = d.getDate();
+		var currentYear = d.getFullYear();
+		var currentWeekday = d.getDay();
+		
+		tmp = document.getElementById("tmp");
+		mth = document.getElementById("mth");
+		t = "";
+		
+		function makeC() {
+			tmp.innerHTML = "";
+			createCalendar(tmp,currentMonth);
+		}
+		
+		createCalendar(tmp,currentMonth);
+		
+		function createCalendar(parentElement, displayMonth) {
+			var startWeekDay = new Date(yr, displayMonth, 1).getDay();
+			var today = new Date();
+			//alert(startWeekDay);
+			var cal = document.createElement("table");
+			parentElement.appendChild(cal);
+
+			var calBody = document.createElement("tbody");
+			cal.appendChild(calBody);
+
+			var monthRow = document.createElement("tr");
+			calBody.appendChild(monthRow);
+			
+			var prevMonth = document.createElement("td");
+			monthRow.appendChild(prevMonth);
+			prevMonth.setAttribute("align","left");
+			
+			var pAnchor = document.createElement("a");
+			pAnchor.setAttribute("href","#");
+			pAnchor.setAttribute("onclick","prevMonth()");
+			pAnchor.setAttribute("class","calbtn");
+			pAnchor.innerHTML = "&#8249";
+			prevMonth.appendChild(pAnchor);
+						
+			var monthD = document.createElement("td");
+			monthD.setAttribute("colspan",5);
+			monthD.setAttribute("align","center");
+			
+			var monthText = document.createTextNode(monthLong[displayMonth]);
+			monthD.appendChild(monthText);
+			monthRow.appendChild(monthD);
+			
+			var nextMonth = document.createElement("td");
+			monthRow.appendChild(nextMonth);
+			nextMonth.setAttribute("align","right");
+			
+			var nAnchor = document.createElement("a");
+			nAnchor.setAttribute("href","#");
+			nAnchor.setAttribute("onclick","nextMonth()");
+			nAnchor.setAttribute("class","calbtn");
+			nAnchor.innerHTML = "&#8250";
+			nextMonth.appendChild(nAnchor);
+			
+			var weekdayNameRow = document.createElement("tr");
+			calBody.appendChild(weekdayNameRow);
+			
+			var cellNumber = 0;
+			
+			//Add weeks to month
+			for (let n = 0; n < 7; n++) {
+				var wDayLabel = document.createElement("td");
+				var daytext = document.createTextNode(weekdayLong[n]);
+				wDayLabel.setAttribute("align","center");
+				wDayLabel.setAttribute("class","dayCol");
+				wDayLabel.appendChild(daytext);
+				weekdayNameRow.appendChild(wDayLabel);
+			}
+			
+			//Add days to week
+			for (w = 0; w < 6; w++) {
+				
+				var wk = document.createElement("tr");
+				calBody.appendChild(wk);
+				wk.setAttribute("id", "week" + (w + 1));
+
+				for (let wd = 0; wd < 7; wd++) {
+					cellNumber ++;
+					var dayNum = cellNumber - startWeekDay;
+					var completeDate = new Date(yr, displayMonth, dayNum);
+					
+					var dCompare = completeDate.getMonth() + "-" + completeDate.getDate() + "-" + completeDate.getFullYear();
+					var todayCompare = today.getMonth() + "-" + today.getDate() + "-" + today.getFullYear();
+					
+					var mCompare = completeDate.getMonth();
+					
+					var wDay = document.createElement("td");
+					wDay.setAttribute("weekday",weekdayLong[wd]);
+					
+					var dateNumber = completeDate.getDate();
+					var dtext = document.createTextNode(dateNumber);
+					
+					wDay.setAttribute("month", monthLong[completeDate.getMonth()]);
+					wDay.setAttribute("date", dateNumber);
+					wDay.setAttribute("year", yr);
+					
+					if (dCompare == todayCompare) {
+						wDay.className += " today";
+					}
+					
+					if (displayMonth != completeDate.getMonth()) {
+						wDay.className += " inactiveMonth";
+					}
+					
+					wDay.appendChild(dtext);
+					wk.appendChild(wDay);
+					//d.className += " otherclass";
+					//createDay(wDay,displayMonth,8,17,yr);
+					monthViewDay(wDay)
+				}
+			}
+		}
+		
+		//tmp.innerHTML = t;
+		
+		function nextMonth() {
+			tmp.innerHTML = "";
+			currentMonth = ((currentMonth + 1) % 12);
+			createCalendar(tmp,currentMonth);
+		}
+		
+		function prevMonth() {
+			tmp.innerHTML = "";
+			currentMonth = ((currentMonth + 11) % 12);
+			createCalendar(tmp,currentMonth);
+		}
+		
+		
+		function monthViewDay(parentElement) {
+			//displayMonth
+			var mTable = document.createElement("table");
+			mTable.setAttribute("class","innerSchedule");
+			parentElement.appendChild(mTable);
+
+			var mtBody = document.createElement("tbody");
+			mTable.appendChild(mtBody);
+
+			for (ii = 0; ii < 4; ii++) {
+				var mtr = document.createElement("tr");
+				mtBody.appendChild(mtr);
+
+				var mtd = document.createElement("td");
+				mtd.setAttribute("class","innerScheduleSlot");
+				mtr.appendChild(mtd);
+			}
+		}
+		
+		function createDay(parentElement, displayMonth, minHour, maxHour, y) {
+			var timeDay = document.createElement("table");
+			parentElement.appendChild(timeDay);
+
+			var timeDaybody = document.createElement("tbody");
+			timeDay.appendChild(timeDaybody);
+
+			for (i = minHour; i < maxHour; i++) {
+				var hourSlot = document.createElement("tr");
+				timeDaybody.appendChild(hourSlot);
+
+				var hourD = document.createElement("td");
+				var hourTime = new Date(y, displayMonth, 15, i);
+				var ampm = hourTime.getHours() >= 12 ? 'pm' : 'am';
+				var hourslot = hourTime.getHours() + "-" + ampm;
+
+				//hourD.appendChild(document.createTextNode(hourslot));
+				hourD.setAttribute("hourslot", hourslot);
+
+				hourSlot.appendChild(hourD);
+
+				var fifTable = document.createElement("table");
+				hourD.appendChild(fifTable);
+
+				var fifBody = document.createElement("tbody");
+				fifTable.appendChild(fifBody);
+
+				for (ii = 0; ii < 4; ii++) {
+					var tSlot = (60 * ((ii + 1) / 4)) - 15;
+					var t15 = new Date(y, displayMonth, 15, i, tSlot);
+
+					var fifRow = document.createElement("tr");
+					fifBody.appendChild(fifRow);
+					var tShorthand = t15.getHours() + "-" + t15.getMinutes() + "-" + ampm;
+
+					var fifTimeSlot = document.createElement("td");
+					var fifteenMinuteTime = t15.toLocaleTimeString();
+
+					fifRow.appendChild(fifTimeSlot);
+					fifTimeSlot.setAttribute("minuteslot",tShorthand);
+
+					//fifTimeSlot.appendChild(document.createTextNode(tShorthand));
+				}
+			}
+		}
+		
+		//alert(months[2]);
+		function daysInMonth (month, year) {
+			return new Date(year, month, 0).getDate();
+		}
+		
+	</script>
+</body>	
+</html>
