@@ -177,7 +177,12 @@
 	<div class="container">
 		<div class="row">
 			<div class="col s12 m7">
+				<input placeholder="Placeholder" id="input_date" type="date" class="validate">
+				<label for="input_date">Input Date</label><br>
 				
+				<a class="btn" onClick="addDate()">Add Date
+					<i class="material-icons right">note_add</i>
+				</a>
 				
 				<div id="calendar">
 					<div id="cal-month" class="mRow">
@@ -197,60 +202,60 @@
 						<div data-day-label-number="6" data-day-label-name="Saturday" class="wdlabel center-align">S</div>
 					</div>
 					<div data-calendarweek="1" class="wRow">
-						<div data-calendarcell="1" data-calendarweekday-number="0" data-calendarweekday-name="Sunday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="2" data-calendarweekday-number="1" data-calendarweekday-name="Monday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="3" data-calendarweekday-number="2" data-calendarweekday-name="Tuesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="4" data-calendarweekday-number="3" data-calendarweekday-name="Wednesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="5" data-calendarweekday-number="4" data-calendarweekday-name="Thursday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="6" data-calendarweekday-number="5" data-calendarweekday-name="Friday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="7" data-calendarweekday-number="6" data-calendarweekday-name="Saturday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="1" data-calendarweekday-number="0" data-calendarweekday-name="Sunday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="2" data-calendarweekday-number="1" data-calendarweekday-name="Monday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="3" data-calendarweekday-number="2" data-calendarweekday-name="Tuesday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="4" data-calendarweekday-number="3" data-calendarweekday-name="Wednesday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="5" data-calendarweekday-number="4" data-calendarweekday-name="Thursday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="6" data-calendarweekday-number="5" data-calendarweekday-name="Friday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="7" data-calendarweekday-number="6" data-calendarweekday-name="Saturday" class="wDay hoverable center-align"></div>
 					</div>
 					<div data-calendarweek="2" class="wRow">
-						<div data-calendarcell="8" data-calendarweekday-number="0" data-calendarweekday-name="Sunday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="9" data-calendarweekday-number="1" data-calendarweekday-name="Monday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="10" data-calendarweekday-number="2" data-calendarweekday-name="Tuesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="11" data-calendarweekday-number="3" data-calendarweekday-name="Wednesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="12" data-calendarweekday-number="4" data-calendarweekday-name="Thursday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="13" data-calendarweekday-number="5" data-calendarweekday-name="Friday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="14" data-calendarweekday-number="6" data-calendarweekday-name="Saturday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="8" data-calendarweekday-number="0" data-calendarweekday-name="Sunday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="9" data-calendarweekday-number="1" data-calendarweekday-name="Monday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="10" data-calendarweekday-number="2" data-calendarweekday-name="Tuesday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="11" data-calendarweekday-number="3" data-calendarweekday-name="Wednesday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="12" data-calendarweekday-number="4" data-calendarweekday-name="Thursday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="13" data-calendarweekday-number="5" data-calendarweekday-name="Friday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="14" data-calendarweekday-number="6" data-calendarweekday-name="Saturday" class="wDay hoverable center-align"></div>
 					</div>
 					<div data-calendarweek="3" class="wRow">
-						<div data-calendarcell="15" data-calendarweekday-number="0" data-calendarweekday-name="Sunday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="16" data-calendarweekday-number="1" data-calendarweekday-name="Monday" class="wDay hoverable center-align waves-effect waves-dark">
+						<div data-calendarcell="15" data-calendarweekday-number="0" data-calendarweekday-name="Sunday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="16" data-calendarweekday-number="1" data-calendarweekday-name="Monday" class="wDay hoverable center-align">
 						</div>
-						<div data-calendarcell="17" data-calendarweekday-number="2" data-calendarweekday-name="Tuesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="18" data-calendarweekday-number="3" data-calendarweekday-name="Wednesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="19" data-calendarweekday-number="4" data-calendarweekday-name="Thursday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="20" data-calendarweekday-number="5" data-calendarweekday-name="Friday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="21" data-calendarweekday-number="6" data-calendarweekday-name="Saturday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="17" data-calendarweekday-number="2" data-calendarweekday-name="Tuesday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="18" data-calendarweekday-number="3" data-calendarweekday-name="Wednesday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="19" data-calendarweekday-number="4" data-calendarweekday-name="Thursday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="20" data-calendarweekday-number="5" data-calendarweekday-name="Friday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="21" data-calendarweekday-number="6" data-calendarweekday-name="Saturday" class="wDay hoverable center-align"></div>
 					</div>
 					<div data-calendarweek="4" class="wRow">
-						<div data-calendarcell="22" data-calendarweekday-number="0" data-calendarweekday-name="Sunday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="23" data-calendarweekday-number="1" data-calendarweekday-name="Monday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="24" data-calendarweekday-number="2" data-calendarweekday-name="Tuesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="25" data-calendarweekday-number="3" data-calendarweekday-name="Wednesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="26" data-calendarweekday-number="4" data-calendarweekday-name="Thursday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="27" data-calendarweekday-number="5" data-calendarweekday-name="Friday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="28" data-calendarweekday-number="6" data-calendarweekday-name="Saturday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="22" data-calendarweekday-number="0" data-calendarweekday-name="Sunday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="23" data-calendarweekday-number="1" data-calendarweekday-name="Monday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="24" data-calendarweekday-number="2" data-calendarweekday-name="Tuesday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="25" data-calendarweekday-number="3" data-calendarweekday-name="Wednesday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="26" data-calendarweekday-number="4" data-calendarweekday-name="Thursday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="27" data-calendarweekday-number="5" data-calendarweekday-name="Friday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="28" data-calendarweekday-number="6" data-calendarweekday-name="Saturday" class="wDay hoverable center-align"></div>
 					</div>
 					<div data-calendarweek="5" class="wRow">
-						<div data-calendarcell="29" data-calendarweekday-number="0" data-calendarweekday-name="Sunday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="30" data-calendarweekday-number="1" data-calendarweekday-name="Monday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="31" data-calendarweekday-number="2" data-calendarweekday-name="Tuesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="32" data-calendarweekday-number="3" data-calendarweekday-name="Wednesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="33" data-calendarweekday-number="4" data-calendarweekday-name="Thursday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="34" data-calendarweekday-number="5" data-calendarweekday-name="Friday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="35" data-calendarweekday-number="6" data-calendarweekday-name="Saturday" class="wDay hoverable center-align waves-effect waves-dark">
+						<div data-calendarcell="29" data-calendarweekday-number="0" data-calendarweekday-name="Sunday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="30" data-calendarweekday-number="1" data-calendarweekday-name="Monday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="31" data-calendarweekday-number="2" data-calendarweekday-name="Tuesday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="32" data-calendarweekday-number="3" data-calendarweekday-name="Wednesday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="33" data-calendarweekday-number="4" data-calendarweekday-name="Thursday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="34" data-calendarweekday-number="5" data-calendarweekday-name="Friday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="35" data-calendarweekday-number="6" data-calendarweekday-name="Saturday" class="wDay hoverable center-align">
 						</div>
 					</div>
 					<div data-calendarweek="6" class="wRow">
-						<div data-calendarcell="36" data-calendarweekday-number="0" data-calendarweekday-name="Sunday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="37" data-calendarweekday-number="1" data-calendarweekday-name="Monday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="38" data-calendarweekday-number="2" data-calendarweekday-name="Tuesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="39" data-calendarweekday-number="3" data-calendarweekday-name="Wednesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="40" data-calendarweekday-number="4" data-calendarweekday-name="Thursday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="41" data-calendarweekday-number="5" data-calendarweekday-name="Friday" class="wDay hoverable center-align waves-effect waves-dark"></div>
-						<div data-calendarcell="42" data-calendarweekday-number="6" data-calendarweekday-name="Saturday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="36" data-calendarweekday-number="0" data-calendarweekday-name="Sunday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="37" data-calendarweekday-number="1" data-calendarweekday-name="Monday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="38" data-calendarweekday-number="2" data-calendarweekday-name="Tuesday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="39" data-calendarweekday-number="3" data-calendarweekday-name="Wednesday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="40" data-calendarweekday-number="4" data-calendarweekday-name="Thursday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="41" data-calendarweekday-number="5" data-calendarweekday-name="Friday" class="wDay hoverable center-align"></div>
+						<div data-calendarcell="42" data-calendarweekday-number="6" data-calendarweekday-name="Saturday" class="wDay hoverable center-align"></div>
 					</div>
 				</div>
 
@@ -264,7 +269,7 @@
 			<div class="card">
 				<div class="card sticky-action">
 				<div class="card-image waves-effect waves-block waves-light">
-					<img class="activator" alt="truck" src="">
+					<img class="activator" alt="truck" src="http://cdn.rushtruckcenters.com/ASSET_7212177A-9186-4B08-929C-D836DE814BC4.ashx">
 				</div>
 				
 					<div class="card-content">
@@ -283,7 +288,6 @@
 			</div>
 		</div>
 	</div>
-	
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 	<script>
@@ -320,7 +324,38 @@
 		mth = document.getElementById("mth");
 		mth.innerHTML = new Date(dispYear, dispMonth + 1, 1).getDay();
 		t = "";
-				
+		
+		function addDate() {
+			var inptD = document.getElementById("input_date");
+			var inputDate = new Date(inptD.value.split("-").join(","));
+			var qSelect = document.querySelectorAll('[data-year="' + inputDate.getFullYear() + '"][data-month="' + inputDate.getMonth() + '"][data-date="' + inputDate.getDate() + '"]','div');
+			
+			var ev = document.createElement("a");
+			ev.style.cursor = "pointer";
+			ev.style.display = "block";
+			ev.style.width = "100%";
+			ev.style.height = "25%";
+			ev.style.fontSize = "75%";
+			ev.className = "evt blue-grey-text deep-orange lighten-2 valign-wrapper";
+			ev.setAttribute("onMouseOver","onmouseoverClass(this,'evt white-text deep-orange')");
+			ev.setAttribute("onMouseOut","onmouseoverClass(this,'evt blue-grey-text deep-orange lighten-2')");
+			
+			ev.setAttribute("onMouseDown","onmouseoverClass(this,'evt white-text deep-orange lighten-4')");
+			ev.setAttribute("onMouseUp","onmouseoverClass(this,'evt white-text deep-orange')");
+			ev.setAttribute("onClick", "showDetails()");
+			ev.appendChild(document.createTextNode("8:00"));
+			
+			qSelect[0].style.padding = "2px";
+			qSelect[0].appendChild(ev);
+		}
+		
+		function onmouseoverClass(elem,cl) {
+				elem.className = cl;			
+		}
+		
+		function showDetails() {
+			alert("HAI");
+		}
 		fillCalendar(dispYear, dispMonth);
 		
 		function fillCalendar(calendarYear,calendarMonth) {
@@ -336,7 +371,7 @@
 				calCell.setAttribute("data-month", nDate.getMonth());
 				calCell.setAttribute("data-date", nDate.getDate());
 				calCell.setAttribute("data-year", nDate.getFullYear());
-
+				
 				//Active Month Styling
 				if (calendarMonth == nDate.getMonth()) {
 					calCell.className += " teal-text text-darken-1 active-month";
@@ -346,9 +381,9 @@
 
 				//TODAY
 				if (new Date(currentYear, currentMonth, currentDate).toString() == nDate.toString()) {
-					calCell.className += " teal lighten-5 hoverable center-align waves-effect waves-light today";
+					calCell.className += " teal lighten-5 hoverable center-align today";
 				} else {
-					calCell.className += " hoverable center-align waves-effect waves-dark";
+					calCell.className += " hoverable center-align";
 				}
 				
 				//Plugin events individually here
@@ -376,11 +411,6 @@
 		
 		
 		var p = "";
-		
-		
-
-		
-		
 		
 		//document.querySelectorAll('[data-calendarweekday-number="' + dispMonthStartDay + '"]','div')[0].innerHTML = "start";
 		//document.querySelectorAll('[data-calendarcell="' + (dispMonthStartDay + dispDate) + '"]','div')[0].innerHTML = "today";
