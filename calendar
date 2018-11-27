@@ -3,6 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Calendar</title>
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--Import materialize.css-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	
 	<style>
 		body {
@@ -10,7 +18,7 @@
 		}
 		
 		table, tbody, tr, td {
-			border: 1px solid #E1D9D9;
+			border: 1px solid #ECECEC;
 			border-collapse: collapse;
 			padding: 0;
 			color: #23242B;
@@ -18,7 +26,10 @@
 		}
 		
 		.today {
-			background-color: antiquewhite;
+		}
+		
+		.today:hover {
+			filter: saturate(150%);
 		}
 		
 		.inactiveMonth {
@@ -49,220 +60,415 @@
 		.dayCol {
 			width: calc(100%/7);
 		}
+		
+		.el {
+			width: 200px;
+			height: 100px;
+			background-color: antiquewhite;
+		}
+		
+		.dayBox {
+			background-color: aliceblue;
+		}
+		
+		.dayBox:hover {
+			filter: saturate(200%);
+		}
+		
+		.wDay {
+			display: inline-block;
+			width: calc(100% / 7);
+			height: 100%;
+			
+			margin: 0;
+			padding: 0;
+			float:left;
+		}
+		
+		.wRow {
+			
+			width: 100%;
+			height: calc(100% / 8);
+			margin: 0;
+			padding: 0;
+		}
+		
+		#calendar{
+			
+			height: 500px;
+			margin: 0;
+			padding: 0;
+		}
+		
+		.mRow{
+			
+			height: calc(100% / 8);
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: nowrap;
+			justify-content:space-between;
+			align-content: stretch;
+			align-items:center;
+		}
+		
+		.mHead {
+			display: flex;
+		}
+		
+		.wdRow{
+			
+			height: calc(100% / 8);
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		
+		.wdlabel{
+			
+			display: inline-block;
+			width: calc(100% / 7);
+			float:left;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		
+		.mLabel {
+			display: inline-block;
+			float:left;
+			width: calc((100% / 7) * 5);
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		
+		.sel-month {
+			display: inline-block;
+			float:left;
+			width: calc(100% / 7);
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		
+		
+		.active-month {
+		}
+		
+		.inactive-month {
+		}
 	</style>
-	
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
 </head>
 
 <body>
-	<button onClick="makeC()">make calendar</button>
+	
+	<a class="btn-flat" onClick="monthCal()">month</a>
+	<a class="btn-flat" onClick="weekCal()">week</a>
+	<a class="btn-flat" onClick="dayCal()">day</a>
+	<a class="btn-flat" onClick="tst()">tst</a>
+	<a class="btn-flat" onClick="buildCalendar()">make</a>	
+	
 	<p id="mth"></p>
 	<div id="tmp"></div>
 	
+	<div class="container">
+		<div class="row">
+			<div class="col s12 m7">
+				
+				
+				<div id="calendar">
+					<div id="cal-month" class="mRow">
+						
+						<a class="btn-flat waves-effect waves-teal left-align mHead"><i class="material-icons left">chevron_left</i></a>
+						<div class="center-align mHead"><h6 id="cal-month-label">month</h6></div>
+						<a class="btn-flat waves-effect waves-teal right-align mHead"><i class="material-icons right">chevron_right</i></a>
+					</div>
+					
+					<div id="cal-days" class="wdRow valign-wrapper" >
+						<div data-day-label-number="0" data-day-label-name="Sunday" class="wdlabel center-align">S</div>
+						<div data-day-label-number="1" data-day-label-name="Monday" class="wdlabel center-align">M</div>
+						<div data-day-label-number="2" data-day-label-name="Tuesday" class="wdlabel center-align">T</div>
+						<div data-day-label-number="3" data-day-label-name="Wednesday" class="wdlabel center-align">W</div>
+						<div data-day-label-number="4" data-day-label-name="Thursday" class="wdlabel center-align">T</div>
+						<div data-day-label-number="5" data-day-label-name="Friday" class="wdlabel center-align">F</div>
+						<div data-day-label-number="6" data-day-label-name="Saturday" class="wdlabel center-align">S</div>
+					</div>
+					<div data-calendarweek="1" class="wRow">
+						<div data-calendarcell="1" data-calendarweekday-number="0" data-calendarweekday-name="Sunday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="2" data-calendarweekday-number="1" data-calendarweekday-name="Monday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="3" data-calendarweekday-number="2" data-calendarweekday-name="Tuesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="4" data-calendarweekday-number="3" data-calendarweekday-name="Wednesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="5" data-calendarweekday-number="4" data-calendarweekday-name="Thursday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="6" data-calendarweekday-number="5" data-calendarweekday-name="Friday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="7" data-calendarweekday-number="6" data-calendarweekday-name="Saturday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+					</div>
+					<div data-calendarweek="2" class="wRow">
+						<div data-calendarcell="8" data-calendarweekday-number="0" data-calendarweekday-name="Sunday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="9" data-calendarweekday-number="1" data-calendarweekday-name="Monday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="10" data-calendarweekday-number="2" data-calendarweekday-name="Tuesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="11" data-calendarweekday-number="3" data-calendarweekday-name="Wednesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="12" data-calendarweekday-number="4" data-calendarweekday-name="Thursday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="13" data-calendarweekday-number="5" data-calendarweekday-name="Friday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="14" data-calendarweekday-number="6" data-calendarweekday-name="Saturday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+					</div>
+					<div data-calendarweek="3" class="wRow">
+						<div data-calendarcell="15" data-calendarweekday-number="0" data-calendarweekday-name="Sunday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="16" data-calendarweekday-number="1" data-calendarweekday-name="Monday" class="wDay hoverable center-align waves-effect waves-dark">
+						</div>
+						<div data-calendarcell="17" data-calendarweekday-number="2" data-calendarweekday-name="Tuesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="18" data-calendarweekday-number="3" data-calendarweekday-name="Wednesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="19" data-calendarweekday-number="4" data-calendarweekday-name="Thursday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="20" data-calendarweekday-number="5" data-calendarweekday-name="Friday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="21" data-calendarweekday-number="6" data-calendarweekday-name="Saturday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+					</div>
+					<div data-calendarweek="4" class="wRow">
+						<div data-calendarcell="22" data-calendarweekday-number="0" data-calendarweekday-name="Sunday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="23" data-calendarweekday-number="1" data-calendarweekday-name="Monday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="24" data-calendarweekday-number="2" data-calendarweekday-name="Tuesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="25" data-calendarweekday-number="3" data-calendarweekday-name="Wednesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="26" data-calendarweekday-number="4" data-calendarweekday-name="Thursday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="27" data-calendarweekday-number="5" data-calendarweekday-name="Friday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="28" data-calendarweekday-number="6" data-calendarweekday-name="Saturday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+					</div>
+					<div data-calendarweek="5" class="wRow">
+						<div data-calendarcell="29" data-calendarweekday-number="0" data-calendarweekday-name="Sunday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="30" data-calendarweekday-number="1" data-calendarweekday-name="Monday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="31" data-calendarweekday-number="2" data-calendarweekday-name="Tuesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="32" data-calendarweekday-number="3" data-calendarweekday-name="Wednesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="33" data-calendarweekday-number="4" data-calendarweekday-name="Thursday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="34" data-calendarweekday-number="5" data-calendarweekday-name="Friday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="35" data-calendarweekday-number="6" data-calendarweekday-name="Saturday" class="wDay hoverable center-align waves-effect waves-dark">
+						</div>
+					</div>
+					<div data-calendarweek="6" class="wRow">
+						<div data-calendarcell="36" data-calendarweekday-number="0" data-calendarweekday-name="Sunday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="37" data-calendarweekday-number="1" data-calendarweekday-name="Monday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="38" data-calendarweekday-number="2" data-calendarweekday-name="Tuesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="39" data-calendarweekday-number="3" data-calendarweekday-name="Wednesday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="40" data-calendarweekday-number="4" data-calendarweekday-name="Thursday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="41" data-calendarweekday-number="5" data-calendarweekday-name="Friday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+						<div data-calendarcell="42" data-calendarweekday-number="6" data-calendarweekday-name="Saturday" class="wDay hoverable center-align waves-effect waves-dark"></div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col s12 m7 large">
+			<div class="card">
+				<div class="card sticky-action">
+				<div class="card-image waves-effect waves-block waves-light">
+					<img class="activator" alt="truck" src="">
+				</div>
+				
+					<div class="card-content">
+						<span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+						<p><a href="#">This is a link</a></p>
+					</div>
+					<div class="card-action">
+					<a href="#">This is a link</a><a href="#">This is a link</a>
+				</div>
+					<div class="card-reveal">
+						<span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+						<p>Here is some more information about this product that is only revealed once clicked on.</p>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 	<script>
 		weekdayLong = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 		weekdayShort = ['Sun','Mon','Tues','Wed','Thur','Fri','Sat'];
 		monthLong = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-		monthShort = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nove','Dec'];
+		monthShort = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 		
-		yr = 2018;
-		var d = new Date();
-		var currentMonth = d.getMonth();
-		var currentDate = d.getDate();
-		var currentYear = d.getFullYear();
-		var currentWeekday = d.getDay();
+		m = 1;
+		w = 2;
+		d = 3;
+		
+		d = new Date();
+		currentMonth = d.getMonth();
+		currentDate = d.getDate();
+		currentYear = d.getFullYear();
+		currentWeekday = d.getDay();
+		
+		dispMonth = currentMonth;
+		dispDate = currentDate;
+		dispYear = currentYear;
+		dispWeekday = currentWeekday;
+		
+		monthStartDay = new Date(currentYear, currentMonth, 1).getDay();
+		dispMonthStartDay = new Date(dispYear, dispMonth, 1).getDay();
+		dispDaysinMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+		
+		currentWeekStartDate = currentDate - currentWeekday;
+		currentWeekEndDate = currentDate + (6 - currentWeekday);
+		currentWeekNumber = (currentWeekEndDate + monthStartDay) / 7;
+		dispWeekNum = currentWeekNumber;
 		
 		tmp = document.getElementById("tmp");
 		mth = document.getElementById("mth");
+		mth.innerHTML = new Date(dispYear, dispMonth + 1, 1).getDay();
 		t = "";
-		
-		function makeC() {
-			tmp.innerHTML = "";
-			createCalendar(tmp,currentMonth);
-		}
-		
-		createCalendar(tmp,currentMonth);
-		
-		function createCalendar(parentElement, displayMonth) {
-			var startWeekDay = new Date(yr, displayMonth, 1).getDay();
-			var today = new Date();
-			//alert(startWeekDay);
-			var cal = document.createElement("table");
-			parentElement.appendChild(cal);
-
-			var calBody = document.createElement("tbody");
-			cal.appendChild(calBody);
-
-			var monthRow = document.createElement("tr");
-			calBody.appendChild(monthRow);
-			
-			var prevMonth = document.createElement("td");
-			monthRow.appendChild(prevMonth);
-			prevMonth.setAttribute("align","left");
-			
-			var pAnchor = document.createElement("a");
-			pAnchor.setAttribute("href","#");
-			pAnchor.setAttribute("onclick","prevMonth()");
-			pAnchor.setAttribute("class","calbtn");
-			pAnchor.innerHTML = "&#8249";
-			prevMonth.appendChild(pAnchor);
-						
-			var monthD = document.createElement("td");
-			monthD.setAttribute("colspan",5);
-			monthD.setAttribute("align","center");
-			
-			var monthText = document.createTextNode(monthLong[displayMonth]);
-			monthD.appendChild(monthText);
-			monthRow.appendChild(monthD);
-			
-			var nextMonth = document.createElement("td");
-			monthRow.appendChild(nextMonth);
-			nextMonth.setAttribute("align","right");
-			
-			var nAnchor = document.createElement("a");
-			nAnchor.setAttribute("href","#");
-			nAnchor.setAttribute("onclick","nextMonth()");
-			nAnchor.setAttribute("class","calbtn");
-			nAnchor.innerHTML = "&#8250";
-			nextMonth.appendChild(nAnchor);
-			
-			var weekdayNameRow = document.createElement("tr");
-			calBody.appendChild(weekdayNameRow);
-			
-			var cellNumber = 0;
-			
-			//Add weeks to month
-			for (let n = 0; n < 7; n++) {
-				var wDayLabel = document.createElement("td");
-				var daytext = document.createTextNode(weekdayLong[n]);
-				wDayLabel.setAttribute("align","center");
-				wDayLabel.setAttribute("class","dayCol");
-				wDayLabel.appendChild(daytext);
-				weekdayNameRow.appendChild(wDayLabel);
-			}
-			
-			//Add days to week
-			for (w = 0; w < 6; w++) {
 				
-				var wk = document.createElement("tr");
-				calBody.appendChild(wk);
-				wk.setAttribute("id", "week" + (w + 1));
+		fillCalendar(dispYear, dispMonth);
+		
+		function fillCalendar(calendarYear,calendarMonth) {
+			var monthLabel = document.getElementById("cal-month-label");
+			var calendarStartDay = new Date(calendarYear, calendarMonth, 1).getDay();
+			
+			monthLabel.innerHTML = monthLong[calendarMonth].toUpperCase();
+			
+			for (i = 1; i < 43; i++) {
+				var nDate = new Date(calendarYear, calendarMonth, i - calendarStartDay);
+				var calCell = document.querySelectorAll('[data-calendarcell="' + (i) + '"]','div')[0];
+				calCell.innerHTML = nDate.getDate();
+				calCell.setAttribute("data-month", nDate.getMonth());
+				calCell.setAttribute("data-date", nDate.getDate());
+				calCell.setAttribute("data-year", nDate.getFullYear());
 
-				for (let wd = 0; wd < 7; wd++) {
-					cellNumber ++;
-					var dayNum = cellNumber - startWeekDay;
-					var completeDate = new Date(yr, displayMonth, dayNum);
-					
-					var dCompare = completeDate.getMonth() + "-" + completeDate.getDate() + "-" + completeDate.getFullYear();
-					var todayCompare = today.getMonth() + "-" + today.getDate() + "-" + today.getFullYear();
-					
-					var mCompare = completeDate.getMonth();
-					
-					var wDay = document.createElement("td");
-					wDay.setAttribute("weekday",weekdayLong[wd]);
-					
-					var dateNumber = completeDate.getDate();
-					var dtext = document.createTextNode(dateNumber);
-					
-					wDay.setAttribute("month", monthLong[completeDate.getMonth()]);
-					wDay.setAttribute("date", dateNumber);
-					wDay.setAttribute("year", yr);
-					
-					if (dCompare == todayCompare) {
-						wDay.className += " today";
+				//Active Month Styling
+				if (calendarMonth == nDate.getMonth()) {
+					calCell.className += " teal-text text-darken-1 active-month";
+				} else {
+					calCell.className += " grey-text text-lighten-1 inactive-month";
+				}
+
+				//TODAY
+				if (new Date(currentYear, currentMonth, currentDate).toString() == nDate.toString()) {
+					calCell.className += " teal lighten-5 hoverable center-align waves-effect waves-light today";
+				} else {
+					calCell.className += " hoverable center-align waves-effect waves-dark";
+				}
+				
+				//Plugin events individually here
+
+			}
+			
+			//OR Plugin all events here
+			
+			//Hide inactive Rows
+			for (i = 0; i < document.getElementsByClassName("wRow").length; i++) {
+				var trueCount = 0;
+				for (ii = 1; ii < 7; ii++) {
+					if (document.getElementsByClassName("wRow")[i].children[ii].className.includes("inactive-month") == true) {
+						trueCount ++;
 					}
-					
-					if (displayMonth != completeDate.getMonth()) {
-						wDay.className += " inactiveMonth";
-					}
-					
-					wDay.appendChild(dtext);
-					wk.appendChild(wDay);
-					//d.className += " otherclass";
-					//createDay(wDay,displayMonth,8,17,yr);
-					monthViewDay(wDay)
+				}
+
+				if (trueCount == 6) {
+					document.getElementsByClassName("wRow")[i].hidden = true;
+				} else {
+					document.getElementsByClassName("wRow")[i].hidden = false;
 				}
 			}
 		}
 		
-		//tmp.innerHTML = t;
 		
-		function nextMonth() {
-			tmp.innerHTML = "";
-			currentMonth = ((currentMonth + 1) % 12);
-			createCalendar(tmp,currentMonth);
-		}
-		
-		function prevMonth() {
-			tmp.innerHTML = "";
-			currentMonth = ((currentMonth + 11) % 12);
-			createCalendar(tmp,currentMonth);
-		}
+		var p = "";
 		
 		
-		function monthViewDay(parentElement) {
-			//displayMonth
-			var mTable = document.createElement("table");
-			mTable.setAttribute("class","innerSchedule");
-			parentElement.appendChild(mTable);
 
-			var mtBody = document.createElement("tbody");
-			mTable.appendChild(mtBody);
+		
+		
+		
+		//document.querySelectorAll('[data-calendarweekday-number="' + dispMonthStartDay + '"]','div')[0].innerHTML = "start";
+		//document.querySelectorAll('[data-calendarcell="' + (dispMonthStartDay + dispDate) + '"]','div')[0].innerHTML = "today";
+		//document.querySelectorAll('[data-calendarcell="' + (dispMonthStartDay + dispDaysinMonth) + '"]','div')[0].innerHTML = "end";
+		
+		function buildCalendar() {
+			var textarea = document.createElement("textarea");
+			textarea.id = "hhh";
+			document.getElementsByTagName("body")[0].appendChild(textarea);
+		/* create Calendar
+		
+		<textarea id="hhh" class="materialize-textarea"></textarea>
+	
+		<div id="nnn">
+			<div id="calendar">
+				<div id="cal-month" class="mRow">
 
-			for (ii = 0; ii < 4; ii++) {
-				var mtr = document.createElement("tr");
-				mtBody.appendChild(mtr);
+					<a class="btn-flat waves-effect waves-teal left-align mHead"><i class="material-icons left">chevron_left</i></a>
+					<div class="center-align mHead"><h6 id="cal-month-label">month</h6></div>
+					<a class="btn-flat waves-effect waves-teal right-align mHead"><i class="material-icons right">chevron_right</i></a>
+				</div>
 
-				var mtd = document.createElement("td");
-				mtd.setAttribute("class","innerScheduleSlot");
-				mtr.appendChild(mtd);
+				<div id="cal-days" class="wdRow valign-wrapper" ></div>
+
+			</div>
+		</div>
+		*/
+		c = document.getElementById("calendar");
+		cd = document.getElementById("cal-days");
+		cm = document.getElementById("cal-month");
+		mLbl = document.getElementById("cal-month-label");
+		
+		cCell = 0;
+		
+		mLbl.innerHTML = monthLong[dispMonth].toUpperCase();
+		//Create day Labels
+			for (ii = 0; ii < 7; ii++) {
+				var d = document.createElement("div");
+				var tx = document.createTextNode(weekdayLong[ii % 7][0]);
+				d.setAttribute("data-day-label-number", ii % 7);
+				d.setAttribute("data-day-label-name", weekdayLong[ii % 7]);
+				d.setAttribute("class", "wdlabel center-align");
+				d.appendChild(tx);
+				cd.appendChild(d);
+			}
+		
+		//Create weeks
+		for (i = 0; i < 6; i++) {
+			
+			var w = document.createElement("div");
+			w.setAttribute("data-calendarweek", i + 1);
+			w.setAttribute("class", "wRow");
+			c.appendChild(w);
+
+			//Create days
+			for (ii = 0; ii < 7; ii++) {
+				cCell ++;
+				var d = document.createElement("div");
+				d.setAttribute("data-calendarcell", cCell);
+				d.setAttribute("data-calendarweekday-number", ii % 7);
+				d.setAttribute("data-calendarweekday-name", weekdayLong[ii % 7]);
+				d.setAttribute("class", "wDay");
+				w.appendChild(d);
 			}
 		}
 		
-		function createDay(parentElement, displayMonth, minHour, maxHour, y) {
-			var timeDay = document.createElement("table");
-			parentElement.appendChild(timeDay);
-
-			var timeDaybody = document.createElement("tbody");
-			timeDay.appendChild(timeDaybody);
-
-			for (i = minHour; i < maxHour; i++) {
-				var hourSlot = document.createElement("tr");
-				timeDaybody.appendChild(hourSlot);
-
-				var hourD = document.createElement("td");
-				var hourTime = new Date(y, displayMonth, 15, i);
-				var ampm = hourTime.getHours() >= 12 ? 'pm' : 'am';
-				var hourslot = hourTime.getHours() + "-" + ampm;
-
-				//hourD.appendChild(document.createTextNode(hourslot));
-				hourD.setAttribute("hourslot", hourslot);
-
-				hourSlot.appendChild(hourD);
-
-				var fifTable = document.createElement("table");
-				hourD.appendChild(fifTable);
-
-				var fifBody = document.createElement("tbody");
-				fifTable.appendChild(fifBody);
-
-				for (ii = 0; ii < 4; ii++) {
-					var tSlot = (60 * ((ii + 1) / 4)) - 15;
-					var t15 = new Date(y, displayMonth, 15, i, tSlot);
-
-					var fifRow = document.createElement("tr");
-					fifBody.appendChild(fifRow);
-					var tShorthand = t15.getHours() + "-" + t15.getMinutes() + "-" + ampm;
-
-					var fifTimeSlot = document.createElement("td");
-					var fifteenMinuteTime = t15.toLocaleTimeString();
-
-					fifRow.appendChild(fifTimeSlot);
-					fifTimeSlot.setAttribute("minuteslot",tShorthand);
-
-					//fifTimeSlot.appendChild(document.createTextNode(tShorthand));
-				}
+		document.getElementById("hhh").innerHTML = document.getElementById("nnn").innerHTML;
+		
+		}
+		
+		
+		
+		function dateSuffix(n) {
+			var ds = "";
+			switch(n.toString().split('').pop()) {
+				case '1':
+					ds = 'st';
+					break;
+				case '2':
+					ds = 'nd';
+					break;
+				case '3':
+					ds = 'rd';
+					break;
+				default:
+					ds = 'th';
 			}
+			return n + ds;
 		}
 		
 		//alert(months[2]);
@@ -270,41 +476,6 @@
 			return new Date(year, month, 0).getDate();
 		}
 		
-	</script>
-	<script>
-		function rAnim() {
-			var regionDescriptor = ["Central","East","West","North","South","Upper","Lower","Mid"];
-			var region = ["Atlantic","Pacific","African","Asian","European","Oceanian","Burundian","Djiboutian","Eritrean","Ethiopian","Kenyan","Madagascar","Rwandan","Somalian","Tanzanian","Ugandan","Zambian","Zimbabwean","Angolan","Cameroonian","Congan","Equatorial","Northern","Algerian","Egyptian","Libyan","Morrocan","Sudanese","Tunisian","Western","Southern","Botswanan","Namibian","Swazilandian","Gambian","Ghanan","Guinean","Liberian","Malian","Mauritanian","Nigerian","Senegalese","Antiguan","Aruban","Bahaman","British","Cayman","Cuban","Dominican","Grenadan","Haitian","Jamaican","Guatemalan","Honduran","Mexican","Nicaraguan","Panaman","Argentinan","Bolivian","Brazilian","Chilean","Colombian","Ecuadorian","French","Guyanese","Paraguaian","Peruvian","Uruguayan","Venezuelan","Bermudan","Canadian","Afgan","Armenian","Bhutanese","Cambodian","Chinaese","Georgian","Indian","Indonesian","Japanese","Kazak","Korean","Kyrgyzstanese","Laotian","Malaysian","Mongolian","Nepalese","Pakistani","Phillipine","Singaporean","Sri Lankan","Taiwanese","Tajikistani","Thai","Turkmenistanese","Uzbeki","Vietnamese","Albanian","Belarusian","Bosniaian","Croatiaian","Icelandian","Liechtensteinian","Macedonian","Moldovan","Russian","Serbian","Swiss","Turkish","Ukrainian","Vatican","Austrian","Belgian","Bulgarian","Czech","Danish","Estonian","Finnish","German","Grecian","Hungarian","Irish","Italian","Latvian","Lithuanian","Luxembourgian","Maltan","Polish","Portuguese","Romanian","Slovakian","Slovenian","Spanish","Swedish","Iraqi","Iranian","Israeli","Jordanian","Kuwaiti","Lebanese","Palestinian","Qatari","Saudi","Syrian","Australian","Micronesian","Samoan"];
-			var animals = ["adouri","black crake","buffalo","bush squirrel","clawless otter","darter","elephant","fish eagle","ground squirrel","jacana","lion","lynx","pied wagtail","polecat","porcupine","red-eyed bulbul","skink","snake","wild cat","wild dog","lizard","wallaby","agouti","albatross","alligator","alpaca","parrot","virginia opossum","badger","beaver","bighorn sheep","bison","black bear","crow","marten","racer","woodcock","anaconda","goose","ant","spiny anteater","anteater","antechinus","antelope","spiny rat","fox","hare","lemming","tern","argalis","long-nosed armadillo","armadillo","false vampire bat","foreset tortoise","openbill","red fox","water buffalo","water dragon","jackal","wild ass","brush turkey","magpie","masked owl","pelican","sea lion","avocet","zorro","0","baboon","pintail","eagle","whale","mongoose","bandicoot","brown bandicoot","deer","barbet","go away bird","gecko","goldeneye","brown bat","fruit bat","bear","american beaver","bee-eater","oryx","vulture","bettong","bird","butcher bird","frigate bird","tropic bird","and white colobus","curlew","kite","rhinoceros","spider monkey","swan","capuchin","chickadee","waxbill","crane","night heron","bulbul","kangaroo","ferret","stork","prairie dog","tree creeper","cardinal","stilt","blackbird","blackbuck","oystercatcher","plover","heart monkey","blesbok","cordon bleu","and gold macaw","and yellow macaw","catfish","duck","peacock","shark","wildebeest","booby","rainbow boa","tree boa","green tree boa","ground boa","boa","boar","heron","bobcat","reedbuck","macaque","bontebok","dolphin","boubou","otter","tapir","gnu","brocket","and yellow marshbird","hyena","lemur","phascogale","rat kangaroo","bunting","gonolek","black mountain tortoise","brown mountain tortoise","owl","dog","bushbaby","bushbuck","bushpig","bustard","butterfly","tiger swallowtail butterfly","buckeye butterfly","caiman","camel","flicker","river otter","barren goose","cobra","raven","starling","white-eye","capybara","caracal","caracara","caribou","python","cat","spotted cat","egret","chameleon","cheetah","weaver","flamingo","chimpanzee","chipmunk","chital","chuckwalla","civet","palm civet","nutcracker","cliffchat","coatimundi","cockatoo","hartebeest","peccary","black colobus","colobus","boubou shrike","brushtail possum","duiker","eland","genet","green iguana","grenadier","langur","melba finch","mynah","nighthawk","pheasant","raccoon","rhea","ringtail","seal","shelduck","turkey","wallaroo","waterbuck","wolf","wombat","zebra","boa constrictor","coot","francolin","partridge","corella","cormorant","cottonmouth","cougar","highland cow","coyote","crab","lava crab","lightfoot crab","screamer","shrike","crocodile","crown of thorns starfish","hawk-eagle","cuis","currasow","thrasher","dabchick","trumpeter","ground finch","dassie","kangaroo rat","spiny lizard","tortoise","devil","dik dik","dingo","wood dove","dove","brown dove","collared dove","woodpecker","dragon","rock dragon","bearded dragon","dragonfly","drongo","whistling duck","dunnart","gull","rattlesnake","hawk eagle","sea eagle","box turtle","cottontail rabbit","diamondback rattlesnake","dwarf mongoose","fox squirrel","grey kangaroo","indigo snake","quoll","white pelican","echidna","viper","crested tinamou","elk","emu","hoopoe","red squirrel","spoonbill","penguin","falcon","sugar glider","rock pigeon","hawk","fisher","flycatcher","skimmer","grass mouse","guinea fowl","american red fox","gray fox","frog","frogmouth","galah","mockingbird","quail","gaur","gazelle","gazer","gemsbok","genoveva","gerbil","gerenuk","girdled lizard","monster","giraffe","ibis","goat","godwit","brush-tailed possum","lowland gorilla","horned owl","kiskadee","skua","adjutant stork","blue-eared starling","kudu","roadrunner","sage grouse","grebe","vine snake","macaw","lourie","mouse lemur","phalarope","squirrel","grison","legaan","monitor","groundhog","grouse","guanaco","guerza","black-backed gull","gulls","african hedgehog","hen","hippopotamus","marmot","sloth","ground hornbill","hornbill","lark","puffin","teal","sparrow","hummingbird","huron","hyrax","ibex","iguana","impala","giant squirrel","leopard","star tortoise","tree pie","insect","jackrabbit","jaeger","jaguar","jaguarundi","gold-spotted mongoose","flats lechwe","scrub robin","kingfisher","kinkajou","klipspringer","koala","kongoni","kookaburra","lapwing","double-collared sunbird","masked weaver","roller","trotter","american sea lion","blue penguin","beaded lizard","llama","pilot whale","turtle","lorikeet","loris","lory","and blue macaw","hawk owl","mallard","malleefowl","manatee","tree shrew","mara","margay","meerkat","moccasin","indian mongoose","howler monkey","monkey","moorhen","moose","mouflon","mudskipper","ox","nilgai","american porcupine","american river otter","elephant seal","fur seal","numbat","nuthatch","nyala","ocelot","turtle","fruit bat","onager","orca","oribi","short-clawed otter","white-backed vulture","osprey","ostrich","ovenbird","paca","pademelon","three-toed sloth","paradoxure","parakeet","pigeon","siskin","platypus","gopher","possum","pygmy possum","potoroo","mantis","pronghorn","puku","puma","american puma","tree rat","sheep","buffalo weaver","toucan","glossy starling","wambenger","reindeer","robin","pink bird eater tarantula","salmon","sambar","sandgrouse","wood sandpiper","birds","serval","sheathbill","white-crowned shrike","sidewinder","sifaka","skunk","spotted skunk","tree sloth","patch-nosed snake","american meadowlark","hairy-nosed wombat","right whale","tamandua","spider","springbok","springbuck","springhare","spurfowl","steenbok","steenbuck","sungazer","suricate","swallow","tenrec","tarantula","tayra","black tern","tiger","topi","tsessebe","turaco","urial","vicuna","wapiti","warthog","sparrow weaver","palm tanager","woodchuck","woodrat","woylie","yak","zorilla"];
-			
-			var nouns1 = ["people","history","art","world","information","map","two","family","government","health","system","computer","meat","year","thanks","music","person","reading","method","data","food","understanding","theory","law","bird","literature","problem","software","control","knowledge","power","ability","economics","love","internet","television","science","library","nature","fact","product","idea","temperature","investment","area","society","activity","story","industry","media","thing","oven","community","definition","safety","quality","development","language","management","player","variety","video","week","security","country","exam","movie","organization","equipment","physics","analysis","policy","series","thought","basis","boyfriend","direction","strategy","technology","army","camera","freedom","paper","environment","child","instance","month","truth","marketing","university","writing","article","department","difference","goal","news","audience","fishing","growth","income","marriage","user","combination","failure","meaning","medicine","philosophy","teacher","communication","night","chemistry","disease","disk","energy","nation","road","role","soup","advertising","location","success","addition","apartment","education","math","moment","painting","politics","attention","decision","event","property","shopping","student","wood","competition","distribution","entertainment","office","population","president","unit","category","cigarette","context","introduction","opportunity","performance","driver","flight","length","magazine","newspaper","relationship","teaching","cell","dealer","finding","lake","member","message","phone","scene","appearance","association","concept","customer","death","discussion","housing","inflation","insurance","mood","woman","advice","blood","effort","expression","importance","opinion","payment","reality","responsibility","situation","skill","statement","wealth","application","city","county","depth","estate","foundation","grandmother","heart","perspective","photo","recipe","studio","topic","collection","depression","imagination","passion","percentage","resource","setting","ad","agency","college","connection","criticism","debt","description","memory","patience","secretary","solution","administration","aspect","attitude","director","personality","psychology","recommendation","response","selection","storage","version","alcohol","argument","complaint","contract","emphasis","highway","loss","membership","possession","preparation","steak","union","agreement","cancer","currency","employment","engineering","entry","interaction","mixture","preference","region","republic","tradition","virus","actor","classroom","delivery","device","difficulty","drama","election","engine","football","guidance","hotel","owner","priority","protection","suggestion","tension","variation","anxiety","atmosphere","awareness","bath","bread","candidate","climate","comparison","confusion","construction","elevator","emotion","employee","employer","guest","height","leadership","mall","manager","operation","recording","sample","transportation","charity","cousin","disaster","editor","efficiency","excitement","extent","feedback","guitar","homework","leader","mom","outcome","permission","presentation","promotion","reflection","refrigerator","resolution","revenue","session","singer","tennis","basket","bonus","cabinet","childhood","church","clothes","coffee","dinner","drawing","hair","hearing","initiative","judgment","lab","measurement","mode","mud","orange","poetry","police","possibility","procedure","queen","ratio","relation","restaurant","satisfaction","sector","signature","significance","song","tooth","town","vehicle","volume","wife","accident","airport","appointment","arrival","assumption","baseball","chapter","committee","conversation","database","enthusiasm","error","explanation","farmer","gate","girl","hall","historian","hospital","injury","instruction","maintenance","manufacturer","meal","perception","pie","poem","presence","proposal","reception","replacement","revolution","river","son","speech","tea","village","warning","winner","worker","writer","assistance","breath","buyer","chest","chocolate","conclusion","contribution","cookie","courage","dad","desk","drawer","establishment","examination","garbage","grocery","honey","impression","improvement","independence","insect","inspection","inspector","king","ladder","menu","penalty","piano","potato","profession","professor","quantity","reaction","requirement","salad","sister","supermarket","tongue","weakness","wedding","affair","ambition","analyst","apple","assignment","assistant","bathroom","bedroom","beer","birthday","celebration","championship","cheek","client","consequence","departure","diamond","dirt","ear","fortune","friendship","funeral","gene","girlfriend","hat","indication","intention","lady","midnight","negotiation","obligation","passenger","pizza","platform","poet","pollution","recognition","reputation","shirt","sir","speaker","stranger","surgery","sympathy","tale","throat","trainer","uncle","youth","time","work","film","water","money","example","while","business","study","game","life","form","air","day","place","number"];
-			var nouns2 = ["part","field","fish","back","process","heat","hand","experience","job","book","end","point","type","home","economy","value","body","market","guide","interest","state","radio","course","company","price","size","card","list","mind","trade","line","care","group","risk","word","fat","force","key","light","training","name","school","top","amount","level","order","practice","research","sense","service","piece","web","boss","sport","fun","house","page","term","test","answer","sound","focus","matter","kind","soil","board","oil","picture","access","garden","range","rate","reason","future","site","demand","exercise","image","case","cause","coast","action","age","bad","boat","record","result","section","building","mouse","cash","class","nothing","period","plan","store","tax","side","subject","space","rule","stock","weather","chance","figure","man","model","source","beginning","earth","program","chicken","design","feature","head","material","purpose","question","rock","salt","act","birth","car","dog","object","scale","sun","note","profit","rent","speed","style","war","bank","craft","half","inside","outside","standard","bus","exchange","eye","fire","position","pressure","stress","advantage","benefit","box","frame","issue","step","cycle","face","item","metal","paint","review","room","screen","structure","view","account","ball","discipline","medium","share","balance","bit","black","bottom","choice","gift","impact","machine","shape","tool","wind","address","average","career","culture","morning","pot","sign","table","task","condition","contact","credit","egg","hope","ice","network","north","square","attempt","date","effect","link","post","star","voice","capital","challenge","friend","self","shot","brush","couple","debate","exit","front","function","lack","living","plant","plastic","spot","summer","taste","theme","track","wing","brain","button","click","desire","foot","gas","influence","notice","rain","wall","base","damage","distance","feeling","pair","savings","staff","sugar","target","text","animal","author","budget","discount","file","ground","lesson","minute","officer","phase","reference","register","sky","stage","stick","title","trouble","bowl","bridge","campaign","character","club","edge","evidence","fan","letter","lock","maximum","novel","option","pack","park","plenty","quarter","skin","sort","weight","baby","background","carry","dish","factor","fruit","glass","joint","master","muscle","red","strength","traffic","trip","vegetable","appeal","chart","gear","ideal","kitchen","land","log","mother","net","party","principle","relative","sale","season","signal","spirit","street","tree","wave","belt","bench","commission","copy","drop","minimum","path","progress","project","sea","south","status","stuff","ticket","tour","angle","blue","breakfast","confidence","daughter","degree","doctor","dot","dream","duty","essay","father","fee","finance","hour","juice","limit","luck","milk","mouth","peace","pipe","seat","stable","storm","substance","team","trick","afternoon","bat","beach","blank","catch","chain","consideration","cream","crew","detail","gold","interview","kid","mark","match","mission","pain","pleasure","score","screw","sex","shop","shower","suit","tone","window","agent","band","block","bone","calendar","cap","coat","contest","corner","court","cup","district","door","east","finger","garage","guarantee","hole","hook","implement","layer","lecture","lie","manner","meeting","nose","parking","partner","profile","respect","rice","routine","schedule","swimming","telephone","tip","winter","airline","bag","battle","bed","bill","bother","cake","code","curve","designer","dimension","dress","ease","emergency","evening","extension","farm","fight","gap","grade","holiday","horror","horse","host","husband","loan","mistake","mountain","nail","noise","occasion","package","patient","pause","phrase","proof","race","relief","sand","sentence","shoulder","smoke","stomach","string","tourist","towel","vacation","west","wheel","wine","arm","aside","associate","bet","blow","border","branch","breast","brother","buddy","bunch","chip","coach","cross","document","draft","dust","expert","floor","god","golf","habit","iron","judge","knife","landscape","league"];
-			var nouns3 = ["mail","mess","native","opening","parent","pattern","pin","pool","pound","request","salary","shame","shelter","shoe","silver","tackle","tank","trust","assist","bake","bar","bell","bike","blame","boy","brick","chair","closet","clue","collar","comment","conference","devil","diet","fear","fuel","glove","jacket","lunch","monitor","mortgage","nurse","pace","panic","peak","plane","reward","row","sandwich","shock","spite","spray","surprise","till","transition","weekend","welcome","yard","alarm","bend","bicycle","bite","blind","bottle","cable","candle","clerk","cloud","concert","counter","flower","grandfather","harm","knee","lawyer","leather","load","mirror","neck","pension","plate","purple","ruin","ship","skirt","slice","snow","specialist","stroke","switch","trash","tune","zone","anger","award","bid","bitter","boot","bug","camp","candy","carpet","cat","champion","channel","clock","comfort","cow","crack","engineer","entrance","fault","grass","guy","hell","highlight","incident","island","joke","jury","leg","lip","mate","motor","nerve","passage","pen","pride","priest","prize","promise","resident","resort","ring","roof","rope","sail","scheme","script","sock","station","toe","tower","truck","witness","a","you","it","can","will","if","one","many","most","other","use","make","good","look","help","go","great","being","few","might","still","public","read","keep","start","give","human","local","general","she","specific","long","play","feel","high","tonight","put","common","set","change","simple","past","big","possible","particular","today","major","personal","current","national","cut","natural","physical","show","try","check","second","call","move","pay","let","increase","single","individual","turn","ask","buy","guard","hold","main","offer","potential","professional","international","travel","cook","alternative","following","special","working","whole","dance","excuse","cold","commercial","low","purchase","deal","primary","worth","fall","necessary","positive","produce","search","present","spend","talk","creative","tell","cost","drive","green","support","glad","remove","return","run","complex","due","effective","middle","regular","reserve","independent","leave","original","reach","rest","serve","watch","beautiful","charge","active","break","negative","safe","stay","visit","visual","affect","cover","report","rise","walk","white","beyond","junior","pick","unique","anything","classic","final","lift","mix","private","stop","teach","western","concern","familiar","fly","official","broad","comfortable","gain","maybe","rich","save","stand","young","fail","heavy","hello","lead","listen","valuable","worry","handle","leading","meet","release","sell","finish","normal","press","ride","secret","spread","spring","tough","wait","brown","deep","display","flow","hit","objective","shoot","touch","cancel","chemical","cry","dump","extreme","push","conflict","eat","fill","formal","jump","kick","opposite","pass","pitch","remote","total","treat","vast","abuse","beat","burn","deposit","print","raise","sleep","somewhere","advance","anywhere","consist","dark","double","draw","equal","fix","hire","internal","join","kill","sensitive","tap","win","attack","claim","constant","drag","drink","guess","minor","pull","raw","soft","solid","wear","weird","wonder","annual","count","dead","doubt","feed","forever","impress","nobody","repeat","round","sing","slide","strip","whereas","wish","combine","command","dig","divide","equivalent","hang","hunt","initial","march","mention","smell","spiritual","survey","tie","adult","brief","crazy","escape","gather","hate","prior","repair","rough","sad","scratch","sick","strike","employ","external","hurt","illegal","laugh","lay","mobile","nasty","ordinary","respond","royal","senior","split","strain","struggle","swim","train","upper","wash","yellow","convert","crash","dependent","fold","funny","grab","hide","miss","permit","quote","recover","resolve","roll","sink","slip","spare","suspect","sweet","swing","twist","upstairs","usual","abroad","brave","calm","concentrate","estimate","grand","male","mine","prompt","quiet","refuse","regret","reveal","rush","shake","shift","shine","steal","suck","surround","anybody","bear","brilliant","dare"];
-			var nouns4 = ["dear","delay","drunk","female","hurry","inevitable","invite","kiss","neat","pop","punch","quit","reply","representative","resist","rip","rub","silly","smile","spell","stretch","stupid","tear","temporary","tomorrow","wake","wrap","yesterday"];
-			
-			var allNouns1 = ["aardvark","abacus","abbey","abdomen","ability","abolishment","abroad","abuse","accelerant","accelerator","access","accident","accommodation","accompanist","accordion","account","accountant","achiever","acid","acknowledgment","acoustic","acoustics","acrylic","act","action","activity","actor","actress","acupuncture","ad","adapter","addiction","addition","address","adjustment","administration","adrenalin","adult","adulthood","advance","advancement","advantage","advertisement","advertising","advice","affair","affect","aftermath","afternoon","aftershave","aftershock","afterthought","age","agency","agenda","agent","aggression","aglet","agreement","aid","air","airbag","airbus","airfare","airforce","airline","airmail","airplane","airport","airship","alarm","alb","albatross","alcohol","alcove","alder","algebra","alibi","allergist","alley","alligator","alloy","almanac","almond","alpaca","alpenglow","alpenhorn","alpha","alphabet","alternative","altitude","alto","aluminium","aluminum","ambassador","ambition","ambulance","amendment","amount","amusement","anagram","analgesia","analog","analogue","analogy","analysis","analyst","anatomy","anesthesiology","anethesiologist","anger","angiosperm","angle","angora","angstrom","anguish","animal","anime","ankle","anklet","annual","anorak","answer","ant","anteater","antechamber","antelope","anthony","anthropology","antler","anxiety","anybody","anything","anywhere","apartment","ape","aperitif","apology","apparatus","apparel","appeal","appearance","appendix","applause","apple","applewood","appliance","application","appointment","approval","apron","apse","aquifer","arch","archaeology","archeology","archer","architect","architecture","arch-rival","area","argument","arithmetic","arm","armadillo","armament","armchair","armoire","armor","arm-rest","army","arrival","arrow","art","artichoke","article","artificer","ascot","ash","ashram","ashtray","aside","ask","asparagus","aspect","asphalt","assignment","assist","assistance","assistant","associate","association","assumption","asterisk","astrakhan","astrolabe","astrologer","astrology","astronomy","atelier","athlete","athletics","atmosphere","atom","atrium","attachment","attack","attempt","attendant","attention","attenuation","attic","attitude","attorney","attraction","audience","auditorium","aunt","author","authorisation","authority","authorization","automaton","avalanche","avenue","average","award","awareness","azimuth","babe","baboon","babushka","baby","back","backbone","backdrop","background","backpack","bacon","bad","badge","badger","bafflement","bag","bagel","baggage","bagpipe","bail","bait","bake","baker","bakery","bakeware","balaclava","balalaika","balance","balcony","ball","ballet","balloon","ballpark","bamboo","banana","band","bandana","bandanna","bandolier","bangle","banjo","bank","bankbook","banker","banquette","baobab","bar","barbeque","barber","barbiturate","barge","baritone","barium","barn","barometer","barracks","barstool","base","baseball","basement","basin","basis","basket","basketball","bass","bassinet","bassoon","bat","bath","bather","bathhouse","bathrobe","bathroom","bathtub","batter","battery","batting","battle","battleship","bay","bayou","beach","bead","beak","beam","bean","beanie","beanstalk","bear","beard","beast","beat","beautiful","beauty","beaver","bed","bedroom","bee","beech","beef","beer","beet","beetle","beggar","beginner","beginning","begonia","behavior","beheading","behest","being","belfry","belief","believe","bell","belligerency","bellows","belly","belt","bench","bend","beneficiary","benefit","bengal","beret","berry","bestseller","best-seller","bet","beverage","beyond","bibliography","bicycle","bid","bidet","bifocals","big","big-rig","bijou","bike","bikini","bill","billboard","bin","biology","biplane","birch","bird","birdbath","birdcage","birdhouse","bird-watcher","birth","birthday","bit","bite","bitter","black","blackberry","blackboard","blackfish","bladder","blade","blame","blank","blanket","blazer","blight","blind","blinker","blister","blizzard","block","blocker","blood","bloodflow","bloom","bloomers","blossom","blouse","blow","blowgun","blowhole","blue","blueberry","boar","board","boat","boat-building","boatload","boatyard","bobcat","body","bog","bolero","bolt","bomb","bomber","bondsman","bone","bongo","bonnet","bonsai","bonus","boogeyman","book","bookcase","bookend","booklet","booster","boot","bootee","bootie","boots","booty","border","bore","bosom","boss","botany","bother","bottle","bottling","bottom","bottom-line","boudoir","bough","boundary","bow","bower","bowl","bowler","bowling","bowtie","box","boxer","boxspring","boy","boyfriend","bra","brace","bracelet","bracket","brain","brake","branch","brand","brandy","brass","brassiere","bratwurst","brave","bread","breadcrumb","break","breakfast","breakpoint","breast","breastplate","breath","breeze","bribery","brick","bricklaying","bridge","brief","briefs","brilliant","british","broad","broccoli","brochure"];		
-			var allNouns2 = ["broiler","broker","brome","bronchitis","bronco","bronze","brooch","brood","brook","broom","brother","brother-in-law","brow","brown","brush","brushfire","brushing","bubble","bucket","buckle","bud","buddy","budget","buffer","buffet","bug","buggy","bugle","building","bulb","bull","bulldozer","bullet","bull-fighter","bumper","bun","bunch","bungalow","bunghole","bunkhouse","burglar","burlesque","burn","burn-out","burst","bus","bush","business","bust","bustle","butane","butcher","butter","button","buy","buyer","buzzard","cabana","cabbage","cabin","cabinet","cable","caboose","cacao","cactus","caddy","cadet","cafe","caftan","cake","calcification","calculation","calculator","calculus","calendar","calf","calico","call","calm","camel","cameo","camera","camp","campaign","campanile","can","canal","cancel","cancer","candelabra","candidate","candle","candy","cane","cannon","canoe","canon","canopy","canteen","canvas","cap","cape","capital","capitulation","capon","cappelletti","cappuccino","captain","caption","car","caravan","carbon","card","cardboard","cardigan","care","career","cargo","carload","carnation","carol","carotene","carp","carpenter","carpet","carport","carriage","carrier","carrot","carry","cart","cartilage","cartload","cartoon","cartridge","cascade","case","casement","cash","cashier","casino","casserole","cassock","cast","castanet","castanets","castle","cat","catacomb","catamaran","catch","category","caterpillar","cathedral","catsup","cattle","cauliflower","cause","caution","cave","c-clamp","cd","ceiling","celebration","celeriac","celery","celeste","cell","cellar","cello","celsius","cement","cemetery","cenotaph","census","cent","center","centimeter","centurion","century","cephalopod","ceramic","cereal","certification","cesspool","chafe","chain","chainstay","chair","chairlift","chairman","chairperson","chaise","chalet","chalice","chalk","challenge","champion","championship","chance","chandelier","change","channel","chaos","chap","chapel","chapter","character","chard","charge","charity","charlatan","charles","charm","chart","chastity","chasuble","chateau","chauffeur","chauvinist","check","checkroom","cheek","cheetah","chef","chemical","chemistry","cheque","cherries","cherry","chess","chest","chick","chicken","chicory","chief","chiffonier","child","childhood","children","chill","chime","chimpanzee","chin","chino","chip","chipmunk","chit-chat","chivalry","chive","chocolate","choice","choker","chop","chopstick","chord","chowder","chrome","chromolithograph","chronograph","chronometer","chub","chug","church","churn","cicada","cigarette","cinema","circle","circulation","circumference","cirrus","citizenship","city","civilisation","claim","clam","clank","clapboard","clarinet","clasp","class","classic","classroom","clause","clave","clavicle","clavier","cleaner","cleat","cleavage","clef","cleric","clerk","click","client","cliff","climate","climb","clip","clipper","cloak","cloakroom","clock","clockwork","clogs","cloister","close","closet","cloth","clothes","clothing","cloud","cloudburst","cloudy","clove","clover","club","clue","clutch","coach","coal","coast","coat","cob","cobweb","cockpit","cockroach","cocktail","cocoa","cod","code","codon","codpiece","coevolution","coffee","coffin","coil","coin","coinsurance","coke","cold","coliseum","collar","collection","college","collision","colloquia","colon","colonisation","colony","color","colt","column","columnist","comb","combat","combination","combine","comfort","comfortable","comic","comma","command","comment","commerce","commercial","commission","committee","common","communicant","communication","community","company","comparison","compassion","competition","competitor","complaint","complement","complex","component","comportment","composer","composition","compost","comprehension","compulsion","computer","comradeship","concentrate","concept","concern","concert","conclusion","concrete","condition","condominium","condor","conductor","cone","confectionery","conference","confidence","confirmation","conflict","confusion","conga","congo","congress","congressman","congressperson","conifer","connection","consent","consequence","consideration","consist","console","consonant","conspirator","constant","constellation","construction","consul","consulate","contact","contact lens","contagion","content","contest","context","continent","contract","contrail","contrary","contribution","control","convection","conversation","convert","convertible","cook","cookie","cooking","coonskin","cope","cop-out","copper","co-producer","copy","copyright","copywriter","cord","corduroy","cork","cormorant","corn","corner","cornerstone","cornet","corral","correspondent","corridor","corruption","corsage","cost","costume","cot","cottage","cotton","couch","cougar","cough","council","councilman","councilor","councilperson","count","counter","counter-force","countess","country","county","couple","courage","course","court","cousin","covariate","cover","coverall","cow","cowbell","cowboy","crab","crack","cracker"];
-			var allNouns3 = ["crackers","cradle","craft","craftsman","crash","crate","cravat","craw","crawdad","crayfish","crayon","crazy","cream","creative","creator","creature","creche","credenza","credit","creditor","creek","creme brulee","crest","crew","crib","cribbage","cricket","cricketer","crime","criminal","crinoline","criteria","criterion","criticism","crocodile","crocus","croissant","crook","crop","cross","cross-contamination","cross-stitch","crotch","croup","crow","crowd","crown","crude","crush","cry","crystallography","cub","cuckoo","cucumber","cuff-links","cultivar","cultivator","culture","culvert","cummerbund","cup","cupboard","cupcake","cupola","curio","curl","curler","currency","current","cursor","curtain","curve","cushion","custard","customer","cut","cuticle","cutlet","cutover","cutting","cyclamen","cycle","cyclone","cylinder","cymbal","cymbals","cynic","cyst","cytoplasm","dad","daffodil","dagger","dahlia","daisy","damage","dame","dance","dancer","dancing","danger","daniel","dare","dark","dart","dash","dashboard","data","database","date","daughter","david","day","daybed","dead","deadline","deal","dealer","dear","death","deathwatch","debate","debt","debtor","decade","decimal","decision","deck","declination","decongestant","decrease","decryption","dedication","deep","deer","defense","deficit","definition","deformation","degree","delay","delete","delight","delivery","demand","demur","den","denim","dentist","deodorant","department","departure","dependent","deployment","deposit","depression","depressive","depth","deputy","derby","derrick","description","desert","design","designer","desire","desk","dessert","destiny","destroyer","destruction","detail","detainment","detective","detention","determination","development","deviance","device","devil","dew","dhow","diadem","diamond","diaphragm","diarist","dibble","dickey","dictaphone","diction","dictionary","diet","difference","differential","difficulty","dig","digestion","digger","digital","dignity","dilapidation","dill","dime","dimension","dimple","diner","dinghy","dinner","dinosaur","diploma","dipstick","direction","director","dirndl","dirt","disadvantage","disarmament","disaster","discipline","disco","disconnection","discount","discovery","discrepancy","discussion","disease","disembodiment","disengagement","disguise","disgust","dish","dishes","dishwasher","disk","display","disposer","distance","distribution","distributor","district","divan","diver","divide","divider","diving","division","dock","doctor","document","doe","dog","dogsled","dogwood","doll","dollar","dolman","dolphin","domain","donkey","door","doorknob","doorpost","dory","dot","double","doubling","doubt","doubter","downforce","downgrade","downtown","draft","drag","dragon","dragonfly","dragster","drain","drake","drama","dramaturge","draw","drawbridge","drawer","drawing","dream","dredger","dress","dresser","dressing","drill","drink","drive","driver","driveway","driving","drizzle","dromedary","drop","drug","drum","drummer","drunk","dry","dryer","duck","duckling","dud","due","duffel","dugout","dulcimer","dumbwaiter","dump","dump truck","dune buggy","dungarees","dungeon","duplexer","dust","dust storm","duster","duty","dwarf","dwelling","dynamo","eagle","ear","eardrum","earmuffs","earplug","earrings","earth","earthquake","earthworm","ease","easel","east","eat","eave","eavesdropper","e-book","ecclesia","eclipse","ecliptic","economics","economy","ecumenist","eddy","edge","edger","editor","editorial","education","edward","eel","effacement","effect","effective","efficacy","efficiency","effort","egg","egghead","eggnog","eggplant","eight","ejector","elbow","election","electricity","electrocardiogram","element","elephant","elevator","elixir","elk","ellipse","elm","elongation","embossing","emergence","emergency","emergent","emery","emotion","emphasis","employ","employee","employer","employment","empowerment","emu","encirclement","encyclopedia","end","endothelium","enemy","energy","engine","engineer","engineering","enigma","enjoyment","enquiry","entertainment","enthusiasm","entrance","entry","environment","envy","epauliere","epee","ephemera","ephemeris","epoch","eponym","epoxy","equal","equinox","equipment","equivalent","era","e-reader","error","escape","ese","espadrille","espalier","essay","establishment","estate","estimate","estrogen","estuary","ethernet","ethics","euphonium","eurocentrism","europe","evaluator","evening","evening-wear","event","eviction","evidence","evocation","evolution","exam","examination","examiner","example","exchange","excitement","exclamation","excuse","executor","exercise","exhaust","ex-husband","exile","existence","exit","expansion","expansionism","experience","expert","explanation","exposition","expression","extension","extent","external","extreme","ex-wife","eye","eyeball","eyebrow","eyebrows","eyeglasses","eyelash","eyelashes","eyelid","eyelids","eyeliner","eyestrain","face","facelift","facet","facilities","facsimile","fact","factor","factory","faculty","fahrenheit","fail","failure","fairies","fairy","faith"];
-			var allNouns4 = ["fall","falling-out","fame","familiar","family","fan","fang","fanlight","fanny","fanny-pack","farm","farmer","fascia","fat","father","father-in-law","fatigues","faucet","fault","fawn","fax","fear","feast","feather","feature","fedelini","fedora","fee","feed","feedback","feel","feeling","feet","felony","female","fen","fence","fencing","fender","ferry","ferryboat","fertilizer","few","fiber","fiberglass","fibre","fiction","fiddle","field","fifth","fight","fighter","figure","figurine","file","fill","filly","film","filth","final","finance","find","finding","fine","finger","fingernail","finish","finisher","fir","fire","fireman","fireplace","firewall","fish","fishbone","fisherman","fishery","fishing","fishmonger","fishnet","fisting","fix","fixture","flag","flame","flanker","flare","flash","flat","flatboat","flavor","flax","fleck","fleece","flesh","flight","flintlock","flip-flops","flock","flood","floor","floozie","flour","flow","flower","flu","flugelhorn","fluke","flute","fly","flytrap","foam","fob","focus","fog","fold","folder","following","fondue","font","food","foot","football","footnote","footrest","foot-rest","footstool","foray","force","forearm","forebear","forecast","forehead","forest","forestry","forever","forgery","fork","form","formal","format","former","fort","fortnight","fortress","fortune","forum","foundation","fountain","fowl","fox","foxglove","fragrance","frame","fratricide","fraudster","frazzle","freckle","freedom","freeplay","freeze","freezer","freight","freighter","freon","fresco","friction","fridge","friend","friendship","frigate","fringe","frock","frog","front","frost","frown","fruit","frustration","fuel","fulfillment","full","fun","function","fundraising","funeral","funny","fur","furnace","furniture","fusarium","futon","future","gaffer","gain","gaiters","gale","gall-bladder","gallery","galley","gallon","galn","galoshes","game","gamebird","gamma-ray","gander","gap","garage","garb","garbage","garden","garlic","garment","garter","gas","gasoline","gastropod","gate","gateway","gather","gauge","gauntlet","gazebo","gazelle","gear","gearshift","geese","gelding","gem","gemsbok","gender","gene","general","genetics","geography","geology","geometry","george","geranium","gerbil","geyser","gherkin","ghost","giant","gift","gigantism","ginseng","giraffe","girdle","girl","girlfriend","git","give","glad","gladiolus","gland","glass","glasses","glen","glider","gliding","glockenspiel","glove","gloves","glue","glut","go","goal","goat","gobbler","god","godmother","goggles","go-kart","gold","goldfish","golf","gondola","gong","good","goodbye","good-bye","goodie","goose","gopher","gore-tex","gorilla","gosling","gossip","governance","government","governor","gown","grab","grab-bag","grade","grain","gram","grammar","grand","granddaughter","grandfather","grandmom","grandmother","grandson","granny","grape","grapefruit","graph","graphic","grass","grasshopper","grassland","gratitude","gray","grease","great","great-grandfather","great-grandmother","greek","green","greenhouse","grenade","grey","grief","grill","grip","grit","grocery","ground","group","grouper","grouse","growth","guarantee","guard","guess","guest","guestbook","guidance","guide","guilt","guilty","guitar","guitarist","gum","gumshoes","gun","gutter","guy","gym","gymnast","gymnastics","gynaecology","gyro","habit","hacienda","hacksaw","hackwork","hail","hair","haircut","half","half-brother","half-sister","halibut","hall","hallway","hamaki","hamburger","hammer","hammock","hamster","hand","handball","hand-holding","handicap","handle","handlebar","handmaiden","handsaw","hang","happiness","harbor","harbour","hardboard","hardcover","hardening","hardhat","hard-hat","hardware","harm","harmonica","harmony","harp","harpooner","harpsichord","hassock","hat","hatbox","hatchet","hate","hatred","haunt","haversack","hawk","hay","head","headlight","headline","headrest","health","hearing","heart","heartache","hearth","hearthside","heart-throb","heartwood","heat","heater","heaven","heavy","hedge","hedgehog","heel","height","heirloom","helen","helicopter","helium","hell","hellcat","hello","helmet","helo","help","hemp","hen","herb","heron","herring","hexagon","heyday","hide","high","highlight","high-rise","highway","hill","hip","hippodrome","hippopotamus","hire","history","hit","hive","hobbies","hobbit","hobby","hockey","hoe","hog","hold","hole","holiday","home","homework","homogenate","homonym","honesty","honey","honeybee","honoree","hood","hoof","hook","hope","hops","horn","hornet","horror","horse","hose","hosiery","hospice","hospital","hospitality","host","hostel","hostess","hot","hot-dog","hotel","hour","hourglass","house","houseboat"];
-			var allNouns5 = ["housework","housing","hovel","hovercraft","howitzer","hub","hubcap","hugger","human","humidity","humor","humour","hunger","hunt","hurdler","hurricane","hurry","hurt","husband","hut","hutch","hyacinth","hybridisation","hydrant","hydraulics","hydrofoil","hydrogen","hyena","hygienic","hyphenation","hypochondria","hypothermia","ice","icebreaker","icecream","ice-cream","icicle","icon","idea","ideal","if","igloo","ikebana","illegal","image","imagination","impact","implement","importance","impress","impression","imprisonment","improvement","impudence","impulse","inbox","incandescence","inch","incident","income","increase","independence","independent","index","indication","indigence","individual","industry","inevitable","infancy","inflammation","inflation","influence","information","infusion","inglenook","ingrate","initial","initiative","in-joke","injury","injustice","ink","in-laws","inlay","inn","innervation","innocence","innocent","input","inquiry","inscription","insect","inside","insolence","inspection","inspector","instance","instruction","instrument","instrumentalist","instrumentation","insulation","insurance","insurgence","intelligence","intention","interaction","interactive","interest","interferometer","interior","interloper","internal","international","internet","interpreter","intervenor","interview","interviewer","intestine","intestines","introduction","invention","inventor","inventory","investment","invite","invoice","iridescence","iris","iron","ironclad","irony","island","issue","it","item","jackal","jacket","jaguar","jail","jailhouse","jam","james","jar","jasmine","jaw","jealousy","jeans","jeep","jeff","jelly","jellyfish","jet","jewel","jewelry","jiffy","job","jockey","jodhpurs","joey","jogging","join","joint","joke","jot","journey","joy","judge","judgment","judo","juggernaut","juice","jumbo","jump","jumper","jumpsuit","junior","junk","junker","junket","jury","justice","jute","kale","kamikaze","kangaroo","karate","karen","kayak","kazoo","keep","kendo","ketch","ketchup","kettle","kettledrum","key","keyboard","keyboarding","keystone","kick","kick-off","kid","kidney","kidneys","kielbasa","kill","kilogram","kilometer","kilt","kimono","kind","kindness","king","kingfish","kiosk","kiss","kitchen","kite","kitten","kitty","kleenex","klomps","knee","kneejerk","knickers","knife","knife-edge","knight","knitting","knot","knowledge","knuckle","koala","kohlrabi","lab","laborer","labour","lace","lack","lacquerware","ladder","lady","ladybug","lake","lamb","lamp","lan","lanai","land","landform","landmine","landscape","language","lantern","lap","laparoscope","lapdog","laptop","larch","larder","lark","laryngitis","lasagna","latency","latex","lathe","latte","laugh","laughter","laundry","lava","law","lawn","lawsuit","lawyer","lay","layer","lead","leader","leadership","leading","leaf","league","leaker","learning","leash","leather","leave","leaver","lecture","leek","leg","legal","legging","legume","lei","leisure","lemon","lemonade","lemur","length","lentil","leprosy","lesson","let","letter","lettuce","level","lever","leverage","license","lie","lier","life","lift","light","lighting","lightning","lilac","lily","limit","limo","line","linen","liner","linguistics","link","linseed","lion","lip","lipstick","liquid","liquor","lisa","list","listen","literature","litigation","litter","liver","livestock","living","lizard","llama","load","loaf","loafer","loan","lobotomy","lobster","local","location","lock","locker","locket","locomotive","locust","loft","log","loggia","logic","loincloth","loneliness","long","look","loss","lot","lotion","lounge","lout","love","low","loyalty","luck","luggage","lumber","lumberman","lunch","luncheonette","lunchroom","lung","lunge","lute","luttuce","lycra","lye","lymphocyte","lynx","lyocell","lyre","lyric","macadamia","macaroni","machine","machinery","macrame","macrofauna","maelstrom","maestro","magazine","magic","maid","maiden","mail","mailbox","mailman","main","maintenance","major","major-league","make","makeup","male","mall","mallet","mambo","mammoth","man","management","manager","mandarin","mandolin","mangrove","manhunt","maniac","manicure","mankind","manner","manor","mansard","manservant","mansion","mantel","mantle","mantua","manufacturer","manx","many","map","maple","maraca","maracas","marble","mare","margin","mariachi","marimba","mark","market","marketing","marksman","marriage","marsh","marshland","marxism","mascara","mask","mass","massage","master","mastication","mastoid","mat","match","mate","material","math","mathematics","matter","mattock","mattress","maximum","maybe","mayonnaise","mayor","meal","meaning","measles","measure","measurement","meat","mechanic","media","medicine","medium","meet","meeting","megaliac","melody","member","membership","memory","men","menorah","mention","menu"];
-			var allNouns6 = ["mercury","mess","message","metal","metallurgist","meteor","meteorology","meter","methane","method","methodology","metro","metronome","mezzanine","mice","microlending","microwave","mid-course","middle","middleman","midi","midline","midnight","midwife","might","migrant","mile","milk","milkshake","millennium","millimeter","millisecond","mime","mimosa","mind","mine","mini","minibus","minimum","minion","mini-skirt","minister","minor","minor-league","mint","minute","mirror","miscarriage","miscommunication","misfit","misogyny","misplacement","misreading","miss","missile","mission","mist","mistake","mister","miter","mitten","mix","mixer","mixture","moat","mobile","moccasins","mocha","mode","model","modem","mole","mom","moment","monastery","monasticism","money","monger","monitor","monkey","monocle","monotheism","monsoon","monster","month","mood","moon","moonscape","moonshine","mop","morning","morsel","mortgage","mortise","mosque","mosquito","most","motel","moth","mother","mother-in-law","motion","motor","motorboat","motorcar","motorcycle","mound","mountain","mouse","mouser","mousse","moustache","mouth","mouton","move","mover","movie","mower","mud","mug","mukluk","mule","multimedia","muscle","musculature","museum","music","music-box","music-making","mustache","mustard","mutt","mycoplasma","n","nail","name","naming","nanoparticle","napkin","nasty","nation","national","native","natural","naturalisation","nature","neat","necessary","neck","necklace","necktie","need","needle","negative","negligee","negotiation","neologism","neon","nephew","nerve","nest","net","netball","netbook","netsuke","network","neurobiologist","neuropathologist","neuropsychiatry","news","newspaper","newsprint","newsstand","nexus","nicety","niche","nickel","niece","night","nightclub","nightgown","nightingale","nightlight","nitrogen","nobody","node","noise","nonbeliever","nonconformist","nondisclosure","nonsense","noodle","normal","norse","north","nose","note","notebook","nothing","notice","notify","notoriety","nougat","novel","nudge","number","numeracy","numeric","numismatist","nurse","nursery","nurture","nut","nutrition","nylon","oak","oar","oasis","oatmeal","obedience","obesity","obi","object","objective","obligation","oboe","observation","observatory","occasion","occupation","ocean","ocelot","octagon","octave","octavo","octet","octopus","odometer","oeuvre","offence","offer","office","officer","official","off-ramp","oil","okra","oldie","olive","omega","omelet","oncology","one","onion","open","opening","opera","operation","ophthalmologist","opinion","opium","opossum","opportunist","opportunity","opposite","option","orange","orangutan","orator","orchard","orchestra","orchid","order","ordinary","ordination","organ","organisation","organization","original","ornament","osmosis","osprey","ostrich","other","others","ott","otter","ounce","outback","outcome","outfit","outhouse","outlay","output","outrigger","outset","outside","oval","ovary","oven","overcharge","overclocking","overcoat","overexertion","overflight","overnighter","overshoot","owl","owner","ox","oxen","oxford","oxygen","oyster","pace","pacemaker","pack","package","packet","pad","paddle","paddock","page","pagoda","pail","pain","paint","painter","painting","paintwork","pair","pajama","pajamas","palm","pamphlet","pan","pancake","pancreas","panda","panic","pannier","panpipe","pansy","panther","panties","pantologist","pantology","pantry","pants","pantsuit","panty","pantyhose","paper","paperback","parable","parachute","parade","parallelogram","paramedic","parcel","parchment","pard","parent","parentheses","park","parka","parking","parrot","parsnip","part","participant","particle","particular","partner","partridge","party","pass","passage","passbook","passenger","passion","passive","past","pasta","paste","pastor","pastoralist","pastry","patch","path","patience","patient","patina","patio","patriarch","patricia","patrimony","patriot","patrol","pattern","pause","pavement","pavilion","paw","pawnshop","pay","payee","payment","pea","peace","peach","peacoat","peacock","peak","peanut","pear","pearl","pedal","peen","peer","peer-to-peer","pegboard","pelican","pelt","pen","penalty","pencil","pendant","pendulum","penicillin","pension","pentagon","peony","people","pepper","percentage","perception","perch","performance","perfume","period","periodical","peripheral","permafrost","permission","permit","perp","person","personal","personality","perspective","pest","pet","petal","petticoat","pew","pha","pharmacist","pharmacopoeia","phase","pheasant","philosopher","philosophy","phone","photo","photographer","phrase","physical","physics","pianist","piano","piccolo","pick","pickax","picket","pickle","picture","pie","piece","pier","piety","pig","pigeon","pike","pile","pilgrimage","pillbox","pillow","pilot","pimp","pimple","pin","pinafore","pince-nez","pine","pineapple","pinecone","ping","pink"];
-			var allNouns7 = ["pinkie","pinstripe","pint","pinto","pinworm","pioneer","pipe","piracy","piss","pitch","pitching","pith","pizza","place","plain","plan","plane","planet","plant","plantation","planter","plaster","plasterboard","plastic","plate","platform","platinum","platypus","play","player","playground","playroom","pleasure","pleated","plenty","plier","plot","plough","plover","plow","plowman","plume","plunger","plywood","pneumonia","pocket","pocketbook","pocket-watch","poem","poet","poetry","poignance","point","poison","poisoning","pole","polenta","police","policeman","policy","polish","politics","pollution","polo","polyester","pompom","poncho","pond","pony","poof","pool","pop","popcorn","poppy","popsicle","population","populist","porch","porcupine","port","porter","portfolio","porthole","position","positive","possession","possibility","possible","post","postage","postbox","poster","pot","potato","potential","potty","pouch","poultry","pound","pounding","poverty","powder","power","practice","precedent","precipitation","preface","preference","prelude","premeditation","premier","preoccupation","preparation","presence","present","presentation","president","press","pressroom","pressure","pressurisation","price","pride","priest","priesthood","primary","primate","prince","princess","principal","principle","print","printer","prior","priority","prison","private","prize","prizefight","probation","problem","procedure","process","processing","produce","producer","product","production","profession","professional","professor","profile","profit","program","progress","project","promise","promotion","prompt","pronunciation","proof","proof-reader","propane","property","proposal","prose","prosecution","protection","protest","protocol","prow","pruner","pseudoscience","psychiatrist","psychoanalyst","psychologist","psychology","ptarmigan","public","publicity","publisher","pudding","puddle","puffin","pull","pulley","puma","pump","pumpkin","pumpkinseed","punch","punctuation","punishment","pupa","pupil","puppy","purchase","puritan","purple","purpose","purse","push","pusher","put","pvc","pyjama","pyramid","quadrant","quail","quality","quantity","quart","quarter","quartz","queen","question","quicksand","quiet","quill","quilt","quince","quit","quiver","quotation","quote","rabbi","rabbit","raccoon","race","racer","racing","racism","racist","rack","radar","radiator","radio","radiosonde","radish","raffle","raft","rag","rage","rail","railway","raiment","rain","rainbow","raincoat","rainmaker","rainstorm","raise","rake","ram","rambler","ramie","ranch","random","randomisation","range","rank","raspberry","rat","rate","ratio","raven","ravioli","raw","rawhide","ray","rayon","reach","reactant","reaction","read","reading","reality","reamer","rear","reason","receipt","reception","recess","recipe","recliner","recognition","recommendation","record","recorder","recording","recover","recreation","recruit","rectangle","red","redesign","rediscovery","reduction","reef","refectory","reference","reflection","refrigerator","refund","refuse","region","register","regret","regular","regulation","reindeer","reinscription","reject","relation","relationship","relative","relaxation","release","reliability","relief","religion","relish","reminder","remote","remove","rent","repair","reparation","repeat","replace","replacement","replication","reply","report","representative","reprocessing","republic","reputation","request","requirement","resale","research","reserve","resident","resist","resolution","resolve","resort","resource","respect","respite","respond","response","responsibility","rest","restaurant","result","retailer","rethinking","retina","retouch","return","reveal","revenant","revenge","revenue","review","revolution","revolve","revolver","reward","rheumatism","rhinoceros","rhyme","rhythm","rice","rich","riddle","ride","rider","ridge","rifle","right","rim","ring","ringworm","rip","ripple","rise","riser","risk","river","riverbed","rivulet","road","roadway","roast","robe","robin","rock","rocker","rocket","rocket-ship","rod","role","roll","roller","roof","room","rooster","root","rope","rose","rostrum","rotate","rough","round","roundabout","route","router","routine","row","rowboat","royal","rub","rubber","rubbish","rubric","ruckus","ruffle","rugby","ruin","rule","rum","run","runaway","runner","rush","rutabaga","ruth","ry","sabre","sack","sad","saddle","safe","safety","sage","sail","sailboat","sailor","salad","salary","sale","salesman","salmon","salon","saloon","salt","samovar","sampan","sample","samurai","sand","sandals","sandbar","sandwich","sardine","sari","sarong","sash","satellite","satin","satire","satisfaction","sauce","sausage","save","saving","savings","savior","saviour","saw","saxophone","scale","scallion","scanner","scarecrow","scarf","scarification","scene","scenery","scent","schedule","scheme","schizophrenic","schnitzel","school","schoolhouse"];
-			var allNouns8 = ["schooner","science","scimitar","scissors","scooter","score","scorn","scow","scraper","scratch","screamer","screen","screenwriting","screw","screwdriver","screw-up","scrim","scrip","script","sculpting","sculpture","sea","seafood","seagull","seal","seaplane","search","seashore","seaside","season","seat","second","secret","secretariat","secretary","section","sectional","sector","secure","security","seed","seeder","segment","select","selection","self","sell","semicircle","semicolon","senator","senior","sense","sensitive","sentence","sepal","septicaemia","series","servant","serve","server","service","session","set","setting","settler","sewer","sex","shack","shade","shadow","shadowbox","shake","shakedown","shaker","shallot","shame","shampoo","shanty","shape","share","shark","sharon","shawl","she","shearling","shears","sheath","shed","sheep","sheet","shelf","shell","shelter","sherry","shield","shift","shin","shine","shingle","ship","shirt","shirtdress","shoat","shock","shoe","shoehorn","shoe-horn","shoelace","shoemaker","shoes","shoestring","shofar","shoot","shootdown","shop","shopper","shopping","shore","shortage","shorts","shortwave","shot","shoulder","shovel","show","shower","show-stopper","shred","shrimp","shrine","sibling","sick","side","sideboard","sideburns","sidecar","sidestream","sidewalk","siding","sign","signal","signature","signet","significance","signup","silence","silica","silk","silkworm","sill","silly","silo","silver","simple","sing","singer","single","sink","sir","sister","sister-in-law","sitar","site","situation","size","skate","skiing","skill","skin","skirt","skull","skullcap","skullduggery","skunk","sky","skylight","skyscraper","skywalk","slapstick","slash","slave","sled","sledge","sleep","sleet","sleuth","slice","slide","slider","slime","slip","slipper","slippers","slope","sloth","smash","smell","smelting","smile","smock","smog","smoke","smoking","smuggling","snail","snake","snakebite","sneakers","sneeze","snob","snorer","snow","snowboarding","snowflake","snowman","snowmobiling","snowplow","snowstorm","snowsuit","snuggle","soap","soccer","society","sociology","sock","socks","soda","sofa","soft","softball","softdrink","softening","software","soil","soldier","solid","solitaire","solution","sombrero","somersault","somewhere","son","song","songbird","sonnet","soot","soprano","sorbet","sorrow","sort","soulmate","sound","soup","source","sourwood","sousaphone","south","south america","south korea","sow","soy","soybean","space","spacing","spade","spaghetti","spandex","spank","spare","spark","sparrow","spasm","speaker","speakerphone","spear","special","specialist","specific","spectacle","spectacles","spectrograph","speech","speed","speedboat","spell","spelling","spend","sphere","sphynx","spider","spike","spinach","spine","spiral","spirit","spiritual","spite","spleen","split","sponge","spoon","sport","spot","spotlight","spray","spread","spring","sprinter","sprout","spruce","spume","spur","spy","square","squash","squatter","squeegee","squid","squirrel","stable","stack","stacking","stadium","staff","stag","stage","stain","stair","staircase","stallion","stamen","stamina","stamp","stance","stand","standard","standoff","star","start","starter","state","statement","station","station-wagon","statistic","status","stay","steak","steal","steam","steamroller","steel","steeple","stem","stencil","step","step-aunt","step-brother","stepdaughter","step-daughter","step-father","step-grandfather","step-grandmother","stepmother","step-mother","stepping-stone","steps","step-sister","stepson","step-son","step-uncle","stew","stick","stiletto","still","stinger","stitch","stock","stocking","stockings","stock-in-trade","stole","stomach","stone","stonework","stool","stop","stopsign","stopwatch","storage","store","storey","storm","story","storyboard","story-telling","stove","strain","strait","stranger","strap","strategy","straw","strawberry","stream","street","streetcar","strength","stress","stretch","strike","string","strip","stroke","structure","struggle","stud","student","studio","study","stuff","stumbling","stupid","stupidity","sturgeon","style","styling","stylus","subcomponent","subconscious","subject","submarine","subroutine","subsidence","substance","suburb","subway","success","suck","suede","suffocation","sugar","suggestion","suit","suitcase","sultan","summer","sun","sunbeam","sunbonnet","sunday","sundial","sunflower","sunglasses","sunlamp","sunroom","sunshine","supermarket","supply","support","supporter","suppression","surface","surfboard","surgeon","surgery","surname","surprise","surround","survey","sushi","suspect","suspenders","sustainment","SUV","swallow","swamp","swan","swath","sweat","sweater","sweats","sweatshirt","sweatshop","sweatsuit","swedish","sweet","sweets","swell","swim","swimming","swimsuit","swing","swiss","switch","switchboard","swivel","sword","swordfish"];
-			var allNouns9 = ["sycamore","symmetry","sympathy","syndicate","synergy","synod","syrup","system","tabby","tabernacle","table","tablecloth","tabletop","tachometer","tackle","tadpole","tail","tailor","tailspin","tale","talk","tam","tambour","tambourine","tam-o'-shanter","tandem","tangerine","tank","tanker","tankful","tank-top","tap","tard","target","task","tassel","taste","tatami","tattler","tattoo","tavern","tax","taxi","taxicab","tea","teach","teacher","teaching","team","tear","technologist","technology","teen","teeth","telephone","telescreen","teletype","television","tell","teller","temp","temper","temperature","temple","tempo","temporariness","temporary","temptress","tendency","tenement","tennis","tenor","tension","tent","tepee","term","terracotta","terrapin","territory","test","text","textbook","texture","thanks","thaw","theater","theism","theme","theory","therapist","thermals","thermometer","thigh","thing","thinking","thirst","thistle","thomas","thong","thongs","thorn","thought","thread","thrill","throat","throne","thrush","thumb","thunder","thunderbolt","thunderhead","thunderstorm","tiara","tic","ticket","tie","tiger","tight","tights","tile","till","timbale","timber","time","timeline","timeout","timer","timpani","tin","tinderbox","tinkle","tintype","tip","tire","tissue","titanium","title","toad","toast","today","toe","toenail","toga","togs","toilet","tolerance","tom","tomato","tomography","tomorrow","tom-tom","ton","tone","tongue","tonight","tool","toot","tooth","toothbrush","toothpaste","toothpick","top","top-hat","topic","topsail","toque","torchiere","toreador","tornado","torso","tortellini","tortoise","tosser","total","tote","touch","tough","tough-guy","tour","tourist","towel","tower","town","townhouse","tow-truck","toy","trachoma","track","tracksuit","tractor","trade","tradition","traditionalism","traffic","trail","trailer","train","trainer","training","tram","tramp","transaction","transition","translation","transmission","transom","transport","transportation","trapdoor","trapezium","trapezoid","trash","travel","tray","treat","treatment","tree","trellis","tremor","trench","trial","triangle","tribe","trick","trigonometry","trim","trinket","trip","tripod","trolley","trombone","trooper","trouble","trousers","trout","trove","trowel","truck","truckit","trumpet","trunk","trust","truth","try","t-shirt","tsunami","tub","tuba","tube","tugboat","tulip","tummy","tuna","tune","tune-up","tunic","tunnel","turban","turkish","turn","turnip","turnover","turnstile","turret","turtle","tussle","tutu","tuxedo","tv","twig","twilight","twine","twist","twister","two","type","typewriter","typhoon","tyvek","ukulele","umbrella","unblinking","uncle","underclothes","underground","underneath","underpants","underpass","undershirt","understanding","underwear","underwire","unemployment","unibody","uniform","union","unique","unit","unity","university","upper","upstairs","urn","usage","use","user","usher","usual","utensil","vacation","vacuum","vagrant","valance","validity","valley","valuable","value","van","vane","vanity","variation","variety","vase","vast","vault","vaulting","veal","vegetable","vegetarianism","vegetation","vehicle","veil","vein","veldt","vellum","velodrome","velvet","vengeance","venom","veranda","verdict","vermicelli","verse","version","vertigo","verve","vessel","vest","vestment","vibe","vibraphone","vibration","video","view","villa","village","vineyard","vinyl","viola","violence","violet","violin","virginal","virtue","virus","viscose","vise","vision","visit","visitor","visor","visual","vitality","vixen","voice","volcano","volleyball","volume","voyage","vulture","wad","wafer","waffle","waist","waistband","wait","waiter","waitress","wake","walk","walker","walkway","wall","wallaby","wallet","walnut","walrus","wampum","wannabe","war","warden","warlock","warmth","warm-up","warning","wash","washbasin","washcloth","washer","washtub","wasp","waste","wastebasket","watch","watchmaker","water","waterbed","waterfall","waterskiing","waterspout","wave","wax","way","weakness","wealth","weapon","wear","weasel","weather","web","wedding","wedge","weed","weeder","weedkiller","week","weekend","weekender","weight","weird","welcome","welfare","well","west","western","wet-bar","wetsuit","whale","wharf","wheat","wheel","whereas","while","whip","whirlpool","whirlwind","whisker","whiskey","whistle","white","whole","wholesale","wholesaler","whorl","width","wife","wilderness","wildlife","will","willow","win","wind","windage","wind-chime","window","windscreen","windshield","wine","wing","wingman","wingtip","winner","winter","wire","wisdom","wiseguy","wish","wisteria","witch","witch-hunt","withdrawal","witness","wolf","wombat","women","wonder","wood","woodland","woodshed"];
-			var allNouns10 = ["woodwind","wool","woolen","word","work","workbench","worker","workhorse","working","worklife","workshop","world","worm","worry","worth","worthy","wound","wrap","wraparound","wrecker","wren","wrench","wrestler","wrinkle","wrist","writer","writing","wrong","xylophone","yacht","yak","yam","yard","yarmulke","yarn","yawl","year","yeast","yellow","yesterday","yew","yin","yoga","yogurt","yoke","you","young","youth","yurt","zampone","zebra","zebrafish","zephyr","ziggurat","zinc","zipper","zither","zone","zoo","zoologist","zoology","zoot-suit","zucchini"];
-			
-			var dsc = regionDescriptor[Math.floor(Math.random()*100)] || "";
-			var rgn = region[Math.floor(Math.random()*100)] || "";
-			var anml = animals[Math.floor(Math.random()*animals.length)];
-			
-			
-			var mostNouns = [allNouns1,allNouns2,allNouns3,allNouns4,allNouns5,allNouns6,allNouns7,allNouns8,allNouns9,allNouns10];
-			var commonNouns = [nouns1,nouns2,nouns3,nouns4];
-			var nArr = commonNouns[Math.floor(Math.random()*commonNouns.length)];
-			var n = nArr[Math.floor(Math.random()*nArr.length)];
-			dsc + " " + rgn + " " + toTitleCase(anml);
-			p.innerHTML = n;
-		}
 	</script>
 </body>	
 </html>
